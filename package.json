@@ -1,0 +1,23 @@
+{
+  "name": "projeto",
+  "version": "1.0.0",
+  "description": "projeto_avaliativo",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucashenriquepereirasilva/projeto_avaliativo.git"
+  },
+  "author": "Lucas henrique",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucashenriquepereirasilva/projeto_avaliativo/issues"
+  },
+  "homepage": "https://github.com/lucashenriquepereirasilva/projeto_avaliativo#readme",
+  "devDependencies": {
+    "electron": "^34.2.0"
+  }
+}

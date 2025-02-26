@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+/* Estilo dos botões (tela principal) */
+.button img {
+    margin: 50px 15px 25px 15px;
+    padding: 5px;
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Adiciona um efeito suave no hover */
+}
+
+.button img:hover {
+    transform: scale(1.1); /* Aumenta o botão ao passar o mouse */
+}
+
+/* Rodapé fixo */
+footer {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background-color: blue;
+    position: fixed;
+    bottom: 0;
+    left: 0; /* Garante que o rodapé fique alinhado à esquerda */
+    z-index: 1000; /* Garante que o rodapé esteja acima de outros elementos */
+}
+
+footer p {
+    color: #ffffff;
+    padding-top: 7px;
+    margin: 0; /* Remove a margem padrão */
+}
+
+/* Ajuste para o conteúdo não ficar atrás do rodapé */
+body {
+    padding-bottom: 60px; /* Ajuste para evitar que o conteúdo fique atrás do rodapé */
+}

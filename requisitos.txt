@@ -1,0 +1,80 @@
+Análise de Requisitos - Sistema de Oficina Mecânica Automotiva
+Objetivo do Sistema
+O sistema de oficina mecânica automotiva visa gerenciar o cadastro de clientes, funcionários, veículos (motos e carros) e serviços realizados. Ele permitirá o controle de manutenção, histórico de serviços, além de facilitar a comunicação com os clientes, o controle de estoque de peças e o pagamento de serviços.
+
+Requisitos Funcionais Específicos
+Cadastro de Clientes
+
+O sistema deve permitir o cadastro de clientes com as seguintes informações: nome completo, CPF/CNPJ, telefone, e-mail e endereço.
+Deve ser possível consultar, editar e excluir clientes registrados.
+Cadastro de Funcionários
+
+O sistema deve permitir o cadastro de funcionários, com informações como nome completo, CPF, telefone, e-mail, endereço, cargo, horário de expediente e salário.
+Funcionários devem ser classificados por função (ex: mecânico, atendente, administrador).
+Cadastro de Veículos (Motos e Carros)
+
+O sistema deve permitir o cadastro de veículos (motos, carros e outros tipos de veículos que a oficina atende) com informações como placa, marca, modelo, ano, cor e problemas técnicos relatados.
+O sistema deve associar o veículo a um cliente, para que cada cliente tenha seu(s) veículo(s) registrados.
+Registro de Manutenção/Serviços
+
+O sistema deve registrar todas as manutenções realizadas em cada veículo, com informações como tipo de serviço, peças substituídas, data da manutenção, mecânico responsável e custo.
+O sistema deve gerar um histórico de serviços para cada veículo, acessível ao cliente e à oficina.
+Controle de Estoque de Peças
+
+O sistema deve permitir o controle do estoque de peças de reposição, com a capacidade de registrar entradas e saídas de peças.
+Quando uma peça for utilizada, o estoque deve ser atualizado automaticamente.
+Agenda de Serviços
+
+O sistema deve permitir o agendamento de serviços para os veículos, gerenciando a disponibilidade dos mecânicos e horários disponíveis para atendimento.
+O sistema deve enviar notificações para os clientes confirmando ou lembrando sobre o agendamento de serviços.
+Relatórios e Consultas
+
+O sistema deve permitir a geração de relatórios, como:
+Relatórios de manutenções realizadas.
+Relatórios de estoque de peças.
+Relatórios financeiros (pagamentos recebidos, serviços realizados, etc.).
+Relatórios de desempenho dos funcionários.
+Deve ser possível realizar consultas rápidas por cliente, veículo, funcionário ou serviço realizado.
+Controle Financeiro
+
+O sistema deve registrar os pagamentos realizados pelos clientes, com a opção de gerar recibos e faturas.
+Deve permitir o controle de receitas, despesas e lucros da oficina.
+Gestão de Funcionários
+
+O sistema deve permitir a atribuição de tarefas aos funcionários, com base na especialidade (mecânico, eletricista, etc.).
+Deve ser possível monitorar a carga de trabalho dos funcionários e suas respectivas horas trabalhadas.
+Controle de Acesso
+
+O sistema deve ter diferentes níveis de acesso para diferentes tipos de usuários:
+Administradores (com acesso total ao sistema).
+Funcionários (com acesso limitado, dependendo da função).
+Requisitos Não Funcionais
+Desempenho
+
+O sistema deve ser rápido ao realizar consultas e gerar relatórios, com um tempo de resposta ideal de até 3 segundos para a maioria das operações e até 10 segundos para relatórios mais complexos.
+Segurança
+
+O sistema deve ter autenticação segura (login com senha) e criptografar dados sensíveis, como informações de pagamento e CPF/CNPJ dos clientes.
+Acesso a dados deve ser restrito com base nos níveis de permissão dos usuários.
+Escalabilidade
+
+O sistema deve ser escalável para acomodar o aumento do número de clientes, veículos e funcionários conforme a oficina cresce.
+Usabilidade
+
+O sistema deve ter uma interface gráfica simples e intuitiva, com fácil navegação para usuários com pouco conhecimento técnico.
+Compatibilidade
+
+O sistema deve ser compatível com diferentes sistemas operacionais, como Windows, Linux e macOS, e ser acessível via navegadores modernos (Chrome, Firefox, Edge).
+Exemplo de Fluxo de Trabalho
+Cadastro de Cliente e Veículo: O atendente cadastra o cliente e, em seguida, registra os veículos (moto ou carro) vinculados a esse cliente.
+Agendamento de Serviço: O cliente solicita um serviço (como revisão ou troca de óleo). O atendente verifica a agenda e marca o serviço para o cliente.
+Execução do Serviço: O mecânico realiza o serviço no veículo, registra as peças usadas e a manutenção realizada.
+Pagamento: Após o serviço, o cliente paga pela manutenção e o sistema registra o pagamento.
+Histórico e Relatórios: O cliente pode acessar o histórico de serviços realizados e a oficina gera relatórios financeiros e operacionais.
+Stakeholders
+Gerente/Administrador: Precisa de relatórios financeiros, de desempenho dos funcionários e controle geral da oficina.
+Atendente: Cadastra clientes e veículos, agenda serviços e gera recibos.
+Mecânicos: Registram os serviços realizados nos veículos, registram peças usadas e interagem com o sistema para atualizações de status.
+Clientes: Acessam seus históricos de serviços e pagam pelas manutenções.
+Conclusão
+Com base nesses requisitos, você pode planejar o desenvolvimento e a implementação do sistema de maneira mais eficaz, garantindo que todos os processos da oficina mecânica sejam integrados e gerenciados de maneira automatizada. O que acha de seguir com essa estrutura ou você gostaria de ajustar algo?

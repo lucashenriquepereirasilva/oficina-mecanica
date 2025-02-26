@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Electron</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="../public/css/style.css">
+
+    <!-- Impedir a execução de scripts externos não autorizados -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+
+
+</head>
+
+<body>
+    <div class="container text-center mt-5">
+        <img src="../public/img/mecanico.png" alt="Clientes" title="Cadastro do Cliente" onclick="client()"
+            class="img-fluid">
+        <img src="../public/img/mecanico3.png" alt="Ordens de serviço" title="Ordens de Serviço" onclick="os()"
+            class="img-fluid">
+    </div>
+
+    <footer class="text-center mt-4">
+        <p id="dataAtual"></p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../public/js/date.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+
+    <script src="rendender.js"></script> <!-- Corrigido o nome do arquivo -->
+
+    <script>
+        // Exibir a data atual no rodapé
+        document.addEventListener("DOMContentLoaded", function () {
+            const dataElement = document.getElementById("dataAtual");
+            const data = new Date();
+            const dataFormatada = data.toLocaleDateString("pt-BR", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+            dataElement.textContent = `Hoje é ${dataFormatada}`;
+        });
+    </script>
+
+</body>
+
+</html>
