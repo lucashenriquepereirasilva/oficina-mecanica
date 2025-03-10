@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/lucashenriquepereirasilva/projeto_avaliativo#readme",
   "devDependencies": {
-    "electron": "^34.2.0"
+    "electron": "^34.3.2"
   }
 }

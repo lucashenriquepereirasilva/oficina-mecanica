@@ -121,6 +121,30 @@ function oswindow(){
 
 
 
+let windowFuncionarios;  // Renomeando a variável
+
+function funcionarios () {
+  nativeTheme.themeSource = 'light';
+  const main = BrowserWindow.getFocusedWindow();
+  if (main) {
+    windowFuncionarios = new BrowserWindow({
+      width: 1010,
+      height: 720,
+      icon: './src/public/img/automotivo.png',
+      resizable: false,
+      parent: main,
+      modal: true
+    });
+  }
+  windowFuncionarios.loadFile('./src/views/funcionarios.html');
+  windowFuncionarios.center();
+}
+
+
+
+
+
+
 
 // iniciar aplicação
 app.whenReady().then(() => {
@@ -160,6 +184,13 @@ app.commandLine.appendSwitch('log-level', '3')
               label: 'Os',
               click: () => oswindow()
           },
+
+          {
+            label: 'Funcionarios',
+            click: () => oswindow()
+        },
+
+      
           {
             type:'separator' 
           },

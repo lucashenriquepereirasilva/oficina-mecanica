@@ -16,3 +16,9 @@ function os(){
    // console.log("Teste do os")
    api.osWindow()
 }
+
+
+function funcionarios(){
+    // console.log("Teste dos funcionarios")
+    api.funcionariosWindow()
+ }

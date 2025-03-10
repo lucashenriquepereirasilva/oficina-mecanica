@@ -1,34 +1,82 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>OS</title>
+    <title>Ordem de Serviço</title>
+</head>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="../public/css/bootstrap.min.css">
+<!-- CSS Personalizado -->
+<link rel="stylesheet" href="../public/css/style.css">
+<!-- impedir a execução de scripts externos ou não autorizados -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
+
+<body>
+    <div class="container">
+        <form id="frmOrderService" class="mt-2 row g-3">
+            <!-- Buscar Cliente -->
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="searchClient" maxlength="30" spellcheck="false" placeholder="Buscar Cliente">
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary" id="btnSearchClient" onclick="searchClient()">Buscar Cliente</button>
+            </div>
+            <hr class="mt-4 border border-primary border -1">
+
+            <!-- Cliente Associado -->
+            <div class="col-md-6">
+                <label for="clientName" class="form-label">Cliente</label>
+                <input type="text" class="form-control" id="clientName" spellcheck="false" disabled>
+            </div>
+
+            <!-- Descrição do Serviço -->
+            <div class="col-md-12">
+                <label for="serviceDescription" class="form-label">Descrição do Serviço</label>
+                <textarea class="form-control" id="serviceDescription" rows="3" maxlength="200" required></textarea>
+            </div>
+
+            <!-- Data de Início -->
+            <div class="col-md-6">
+                <label for="startDate" class="form-label">Data de Início</label>
+                <input type="date" class="form-control" id="startDate" required>
+            </div>
+
+            <!-- Data de Conclusão -->
+            <div class="col-md-6">
+                <label for="endDate" class="form-label">Data de Conclusão</label>
+                <input type="date" class="form-control" id="endDate">
+            </div>
+
+            <!-- Status -->
+            <div class="col-md-6">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" name="status">
+                    <option value="pendente">Pendente</option>
+                    <option value="em andamento">Em andamento</option>
+                    <option value="concluída">Concluída</option>
+                </select>
+            </div>
+
+            <!-- Observações -->
+            <div class="col-md-12">
+                <label for="observations" class="form-label">Observações</label>
+                <textarea class="form-control" id="observations" rows="3" maxlength="200"></textarea>
+            </div>
+
+            <!-- Botões -->
+            <div class="mt-5">
+                <button type="submit" class="btn btn-success" id="btnCreateOS">Criar Ordem de Serviço</button>
+                <button type="button" class="btn btn-warning" id="btnUpdateOS">Editar Ordem de Serviço</button>
+                <button type="button" class="btn btn-danger" id="btnDeleteOS">Excluir Ordem de Serviço</button>
+                <button type="reset" class="btn btn-secondary" id="btnResetOS">Limpar</button>
+            </div>
+        </form>
+    </div>
 
     <!-- Bootstrap -->
-   
-    <!-- CSS personalizado -->
-    <link rel="stylesheet" href="../public/css/style.css">
-    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
-
-    
-    <!-- Impedir a execução de scripts externos não autorizados -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
-
-</head>
-<body>
-
-    <div class="container">
-        <h1>OS</h1>
-    </div>
-     
-   
-    <!-- Scripts -->
-
-    
- 
     <script src="../public/js/bootstrap.min.js"></script>
- 
+
 </body>
 </html>
