@@ -121,23 +121,24 @@ function oswindow(){
 
 
 
-let windowFuncionarios;  // Renomeando a variável
-
-function funcionarios () {
-  nativeTheme.themeSource = 'light';
-  const main = BrowserWindow.getFocusedWindow();
-  if (main) {
-    windowFuncionarios = new BrowserWindow({
+let funcionarios
+function funcionarioswindow(){
+  nativeTheme.themeSource = 'light'
+  const main = BrowserWindow.getFocusedWindow()
+  if(main) {
+    funcionarios = new BrowserWindow({
       width: 1010,
       height: 720,
+     // autoHideMenuBar: true,
       icon: './src/public/img/automotivo.png',
       resizable: false,
+
       parent: main,
       modal: true
-    });
+    })
   }
-  windowFuncionarios.loadFile('./src/views/funcionarios.html');
-  windowFuncionarios.center();
+  funcionarios.loadFile('./src/views/funcionarios.html')
+  funcionarios.center()
 }
 
 
@@ -187,7 +188,7 @@ app.commandLine.appendSwitch('log-level', '3')
 
           {
             label: 'Funcionarios',
-            click: () => oswindow()
+            click: () => funcionarioswindow()
         },
 
       
