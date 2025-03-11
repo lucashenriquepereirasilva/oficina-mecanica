@@ -1,24 +1,28 @@
 /**
- * processo de renderização
+ * Processo de renderização
  */
 
-console.log("processo de renderização")
-
-
+console.log("processo de renderização");
 
 function client() {
-    // console.log("Teste do botão cliente")
-    api.clientWindow()
+    api.clientWindow();
+}
+
+function os() {
+    api.osWindow();
+}
+
+function funcionarios() {
+    api.funcionariosWindow();
+}
+
+function veiculos() { // Mudança aqui: "veiculos" minúsculo para corresponder ao preload.js
+    api.veiculosWindow();
+}
+
+function motor() { // Mudança aqui: "veiculos" minúsculo para corresponder ao preload.js
+    api.motor();
 }
 
 
-function os(){
-   // console.log("Teste do os")
-   api.osWindow()
-}
 
-
-function funcionarios(){
-    // console.log("Teste dos funcionarios")
-    api.funcionariosWindow()
- }
