@@ -21,21 +21,54 @@
 
 <body>
     <div class="container">
-        <form id="frmOrderService" class="mt-2 row g-3">
-            <!-- Buscar Cliente -->
-            <div class="col-md-6">
-                <input type="text" class="form-control" id="searchClient" maxlength="30" spellcheck="false" placeholder="Buscar Cliente">
-            </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-primary" id="btnSearchClient" onclick="searchClient()">Buscar Cliente</button>
-            </div>
-            <hr class="mt-4 border border-primary border -1">
+        <form class="mt-2 row g-3">
 
-            <!-- Cliente Associado -->
-            <div class="col-md-6">
-                <label for="clientName" class="form-label">Cliente</label>
-                <input type="text" class="form-control" id="clientName" spellcheck="false" disabled>
+            <!-- OS -->
+            <div class="col-md-4">
+                <label class="form-label">Nº OS</label>
+                <input type="text" class="form-control" id="txtOs" disabled>
             </div>
+
+            <!-- Data -->
+            <div class="col-md-3">
+                <label class="form-label">Data</label>
+                <input type="text" class="form-control" id="txtData" disabled>
+            </div>
+
+            <!-- Buscar cliente -->
+            <div class="col-md-5">
+                <label for="inputSearchClient" class="form-label">Buscar Cliente</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="inputSearchClient" spellcheck="false" required maxlength="30">
+                    <span class="input-group-text">
+                        <img src="../public/img/cliente.png" alt="lupa" width="20">
+                    </span>
+                </div>
+            </div>
+
+            <!-- Nome -->
+            <div class="col-md-5">
+                <label for="inputNameClient" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="inputNameClient" spellcheck="false" maxlength="30" disabled>
+            </div>
+
+            <!-- Telefone -->
+            <div class="col-md-3">
+                <label for="inputPhoneClient" class="form-label">Telefone</label>
+                <input type="text" class="form-control" id="inputPhoneClient" spellcheck="false" maxlength="15"
+                    disabled>
+            </div>
+
+            <!-- CPF -->
+            <div class="col-md-4">
+                <label for="inputCPFClient" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="inputCPFClient" spellcheck="false" maxlength="15" disabled>
+            </div>
+
+            <!-- Linha -->
+            <hr class="mt-4 border border-secondary border -1">
+
+       
 
             <!-- Descrição do Serviço -->
             <div class="col-md-12">
