@@ -53,7 +53,8 @@
                <!-- CEP -->
             <div class="col-md-2">
                 <label for="inputCEPClient" class="form-label">CEP</label>
-                <input type="text" class="form-control" id="inputCEPClient" spellcheck="false" required maxlength="15">
+                <input type="text" class="form-control" id="inputCEPClient" spellcheck="false" required onblur="buscarCEP()"
+                 maxlength="15">
                </div>
 
                <!-- Logradouro -->
@@ -89,7 +90,7 @@
                <!-- UF -->
                 <div class="col-md-3">
                     <label for="uf" class="form-label">Unidade Federativa</label>
-                <select class="form-select" id="uf" name="uf">
+                <select class="form-select" id="inputUFclient" name="inputUFclient">
                     <option value="">Selecione uma UF</option>
                     <option value="AC">AC - Acre</option>
                     <option value="AL">AL - Alagoas</option>
@@ -135,8 +136,14 @@
         </form>
     </div>
 
+
+<!--renderizador-->
+    <script src="rendererCliente.js"></script>
+
+
     <!-- Bootstrap -->
     <script src="../public/js/bootstrap.min.js"></script>
+    
 
 </body>
 </html>
