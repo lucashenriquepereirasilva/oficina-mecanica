@@ -16,12 +16,56 @@
                 <input type="text" class="form-control" id="inputPlateVehicle" required maxlength="7">
             </div>
             <div class="col-md-6">
-                <label for="inputBrandVehicle" class="form-label">Marca</label>
-                <input type="text" class="form-control" id="inputBrandVehicle" required>
+                <label for="inputCategoryVehicle" class="form-label">Categoria do Veículo</label>
+                <select class="form-control" id="inputCategoryVehicle" required>
+                    <option value="" disabled selected>Escolha a categoria</option>
+                    <option value="Carro">Carro</option>
+                    <option value="Motocicleta">Motocicleta</option>
+                    <option value="Caminhão">Caminhão</option>
+                    <option value="Caminhonete">Caminhonete</option>
+                    <option value="Ônibus">Ônibus</option>
+                    <option value="Van">Van</option>
+                    <option value="Micro-ônibus">Micro-ônibus</option>
+                    <option value="Furgão">Furgão</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Pick-up">Pick-up</option>
+                </select>
             </div>
             <div class="col-md-6">
                 <label for="inputModelVehicle" class="form-label">Modelo</label>
-                <input type="text" class="form-control" id="inputModelVehicle" required>
+                <select class="form-control" id="inputModelVehicle" required>
+                    <option value="" disabled selected>Escolha o modelo</option>
+                    <option value="Fusca">Fusca</option>
+                    <option value="Civic">Civic</option>
+                    <option value="Corolla">Corolla</option>
+                    <option value="Golf">Golf</option>
+                    <option value="Onix">Onix</option>
+                    <option value="Palio">Palio</option>
+                    <option value="Argo">Argo</option>
+                    <option value="Kwid">Kwid</option>
+                    <option value="HB20">HB20</option>
+                    <option value="Toro">Toro</option>
+                    <option value="Ranger">Ranger</option>
+                    <option value="Hilux">Hilux</option>
+                    <option value="Ka">Ka</option>
+                    <option value="Tucson">Tucson</option>
+                    <option value="X6">X6</option>
+                    <option value="A3">A3</option>
+                    <option value="i30">i30</option>
+                    <option value="Fit">Fit</option>
+                    <option value="Fusion">Fusion</option>
+                    <option value="L200">L200</option>
+                    <option value="Duster">Duster</option>
+                    <option value="Focus">Focus</option>
+                    <option value="Edge">Edge</option>
+                    <option value="S10">S10</option>
+                    <option value="Maverick">Maverick</option>
+                    <option value="C5">C5</option>
+                    <option value="Compass">Compass</option>
+                    <option value="V20">V20</option>
+                    <option value="T-Cross">T-Cross</option>
+                    <option value="Jetta">Jetta</option>
+                </select>
             </div>
             <div class="col-md-6">
                 <label for="inputYearVehicle" class="form-label">Ano</label>
@@ -29,7 +73,47 @@
             </div>
             <div class="col-md-6">
                 <label for="inputColorVehicle" class="form-label">Cor</label>
-                <input type="text" class="form-control" id="inputColorVehicle" required>
+                <select class="form-control" id="inputColorVehicle" required>
+                    <option value="" disabled selected>Escolha a cor</option>
+                    <option value="Preto">Preto</option>
+                    <option value="Branco">Branco</option>
+                    <option value="Prata">Prata</option>
+                    <option value="Cinza">Cinza</option>
+                    <option value="Azul">Azul</option>
+                    <option value="Vermelho">Vermelho</option>
+                    <option value="Verde">Verde</option>
+                    <option value="Amarelo">Amarelo</option>
+                    <option value="Laranja">Laranja</option>
+                    <option value="Bege">Bege</option>
+                    <option value="Rosa">Rosa</option>
+                    <option value="Marrom">Marrom</option>
+                    <option value="Dourado">Dourado</option>
+                    <option value="Prata">Prata</option>
+                    <option value="Azul Claro">Azul Claro</option>
+                    <option value="Azul Escuro">Azul Escuro</option>
+                    <option value="Verde Claro">Verde Claro</option>
+                    <option value="Verde Escuro">Verde Escuro</option>
+                    <option value="Branco Perolizado">Branco Perolizado</option>
+                    <option value="Preto Fosco">Preto Fosco</option>
+                    <option value="Prata Fosco">Prata Fosco</option>
+                    <option value="Cinza Claro">Cinza Claro</option>
+                    <option value="Cinza Escuro">Cinza Escuro</option>
+                    <option value="Vermelho Claro">Vermelho Claro</option>
+                    <option value="Vermelho Escuro">Vermelho Escuro</option>
+                    <option value="Amarelo Claro">Amarelo Claro</option>
+                    <option value="Amarelo Escuro">Amarelo Escuro</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEngineType" class="form-label">Tipo de Motor</label>
+                <select class="form-control" id="inputEngineType" required>
+                    <option value="" disabled selected>Escolha o tipo de motor</option>
+                    <option value="Gasolina">Gasolina</option>
+                    <option value="Álcool">Álcool</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Elétrico">Elétrico</option>
+                    <option value="Híbrido">Híbrido</option>
+                </select>
             </div>
             <div class="mt-3">
                 <button type="submit" class="btn btn-success">Adicionar Veículo</button>
@@ -44,12 +128,13 @@
         document.getElementById('frmVehicle').addEventListener('submit', function(event) {
             event.preventDefault();
             const plate = document.getElementById('inputPlateVehicle').value;
-            const brand = document.getElementById('inputBrandVehicle').value;
+            const category = document.getElementById('inputCategoryVehicle').value;
             const model = document.getElementById('inputModelVehicle').value;
             const year = document.getElementById('inputYearVehicle').value;
             const color = document.getElementById('inputColorVehicle').value;
+            const engineType = document.getElementById('inputEngineType').value;
             
-            const vehicle = { plate, brand, model, year, color };
+            const vehicle = { plate, category, model, year, color, engineType };
             let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
             vehicles.push(vehicle);
             localStorage.setItem('vehicles', JSON.stringify(vehicles));
@@ -63,7 +148,7 @@
             vehicles.forEach((vehicle, index) => {
                 const li = document.createElement('li');
                 li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                li.innerHTML = `${vehicle.plate} - ${vehicle.brand} ${vehicle.model} (${vehicle.year}) - ${vehicle.color}
+                li.innerHTML = `${vehicle.plate} - ${vehicle.category} ${vehicle.model} (${vehicle.year}) - ${vehicle.color} - ${vehicle.engineType}
                     <button class="btn btn-danger btn-sm" onclick="deleteVehicle(${index})">Excluir</button>`;
                 list.appendChild(li);
             });
