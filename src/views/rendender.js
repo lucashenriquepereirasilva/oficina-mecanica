@@ -2,27 +2,29 @@
  * Processo de renderização
  */
 
-console.log("processo de renderização");
+console.log("processo de renderização")
 
 function client() {
-    api.clientWindow();
+    api.clientWindow()
 }
 
 function os() {
-    api.osWindow();
+    api.osWindow()
 }
 
 function funcionarios() {
-    api.funcionariosWindow();
+    api.funcionariosWindow()
+}
+
+
+function motor() { // Mudança aqui: "veiculos" minúsculo para corresponder ao preload.js
+    api.motorWindow()
 }
 
 function veiculos() { // Mudança aqui: "veiculos" minúsculo para corresponder ao preload.js
-    api.veiculosWindow();
+    api.veiculosWindow()
 }
 
-function motor() { // Mudança aqui: "veiculos" minúsculo para corresponder ao preload.js
-    api.motor();
-}
 
 
 

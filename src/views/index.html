@@ -21,21 +21,20 @@
 
 <body>
     <div class="container text-center mt-5">
-        <img src="../public/img/mecanico.png" alt="Clientes" title="Cadastro do Cliente" onclick="client()"
-            class="img-fluid">
-        <img src="../public/img/mecanico3.png" alt="Ordens de serviço" title="Ordens de Serviço" onclick="os()"
+        <img src="../public/img/mecanico.png" alt="Clientes" title="Cadastro do Cliente" onclick="client()">
+        <img src="../public/img/mecanico3.png" alt="Ordens de serviço" title="Ordens de Serviço" onclick="os()">
+
+        <img src="../public/img/automotivo.png" alt="funcionários" title="funcionários" onclick="funcionarios()"
             class="img-fluid">
 
-            <img src="../public/img/automotivo.png" alt="funcionários" title="funcionários" onclick="funcionarios()"
-            class="img-fluid">
 
-            <img src="../public/img/carro.png" alt="Cadastro Veiculos" title="Cadastro Veiculos" onclick="veiculos()"
-            class="img-fluid">
-            
-            <img src="../public/img/motor-de-carro.png" alt="motor" title="Motor Veiculos" onclick="motor()"
-            class="img-fluid">
+        <img src="../public/img/motor-de-carro.png" alt="motor" title="Motor Veiculos" onclick="motor()">
 
-        
+
+        <img src="../public/img/carro.png" alt="Cadastro Veiculos" title="Cadastro Veiculos" onclick="veiculos()">
+
+
+
 
     </div>
 
@@ -50,21 +49,9 @@
     <script src="rendender.js"></script> <!-- Corrigido o nome do arquivo -->
 
     <script>
-        // Exibir a data atual no rodapé
-        document.addEventListener("DOMContentLoaded", function () {
-            const dataElement = document.getElementById("dataAtual");
-            const data = new Date();
-            const dataFormatada = data.toLocaleDateString("pt-BR", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-            });
-            dataElement.textContent = `Hoje é ${dataFormatada}`;
-        });
 
 
-        
+
     </script>
 
 </body>

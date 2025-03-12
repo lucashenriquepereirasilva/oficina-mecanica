@@ -1,8 +1,8 @@
- console.log("processo Principal")
+console.log("processo Principal")
 console.log(`Electron: ${process.versions.electron}`)
 
 
-const { app, BrowserWindow, nativeTheme ,Menu,  ipcMain} = require('electron')
+const { app, BrowserWindow, nativeTheme, Menu, ipcMain } = require('electron')
 // essa linha esta relacionada ao preload.js
 const path = require('node:path');
 
@@ -12,8 +12,8 @@ const path = require('node:path');
 // Janela principal
 let win
 const createWindow = () => {
-nativeTheme.themeSource = 'dark'
-   win = new BrowserWindow({
+  nativeTheme.themeSource = 'dark'
+  win = new BrowserWindow({
     width: 800,
     height: 600,
     resizable: false,
@@ -21,39 +21,58 @@ nativeTheme.themeSource = 'dark'
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
-   // resizable: false   /* remover a ação de minimizar tela */
-  // autoHideMenuBar: true, /* remover a ação de menu tela */
-   //minimizable: false,
-  
- })
+    // resizable: false   /* remover a ação de minimizar tela */
+    // autoHideMenuBar: true, /* remover a ação de menu tela */
+    //minimizable: false,
 
- // menu personalizado 
-Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+  })
+
+  // menu personalizado 
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
   win.loadFile('./src/views/index.html')
 
 
   // recebimento dos pedidos  do renderizador para a abertura das janelas
-  ipcMain.on ('client-window', () => {
-    clientwindow()
+  ipcMain.on('client-window', () => {
+    clientWindow()
   })
 
-  ipcMain.on ('os-window', () => {
-   oswindow()
+  ipcMain.on('os-window', () => {
+    osWindow()
   })
+
+  ipcMain.on('motor-window', () => {
+    motorWindow()
+  })
+
+  ipcMain.on('veiculos-window', () => {
+    veiculosWindow()
+  })
+
+
+
+
+  ipcMain.on('funcionarios-window', () => {
+    funcionariosWindow()
+  })
+
+
+
+
 }
 
 // janela sobre
 const aboutwindow = () => {
-    const about = new BrowserWindow({
-        width: 360,
-        height: 220,
-        icon: './src/img/pc.png',
-        autoHideMenuBar:true,
-        resizable: false
-    })
+  const about = new BrowserWindow({
+    width: 360,
+    height: 220,
+    icon: './src/img/pc.png',
+    autoHideMenuBar: true,
+    resizable: false
+  })
 
-    about.loadFile('./src/views/sobre.html')
+  about.loadFile('./src/views/sobre.html')
 
 }
 
@@ -65,28 +84,28 @@ const childWindow = () => {
     const child = new BrowserWindow({
       width: 640,
       height: 220,
-      icon: './src/p/img/pc.png',
+      icon: './src/public/img/pc.png',
       autoHideMenuBar: true,
       resizable: false,
       parent: father,
       modal: true
-      
+
     })
     child.loadFile('./src/views/child.html')
-  
+
   }
 }
 
 
 let client
-function clientwindow(){
+function clientWindow() {
   nativeTheme.themeSource = 'light'
   const main = BrowserWindow.getFocusedWindow()
-  if(main) {
+  if (main) {
     client = new BrowserWindow({
       width: 1010,
       height: 720,
-     // autoHideMenuBar: true,
+      // autoHideMenuBar: true,
       icon: './src/public/img/chave-inglesa.png',
       resizable: false,
       parent: main,
@@ -99,14 +118,14 @@ function clientwindow(){
 
 
 let os
-function oswindow(){
+function osWindow() {
   nativeTheme.themeSource = 'light'
   const main = BrowserWindow.getFocusedWindow()
-  if(main) {
+  if (main) {
     os = new BrowserWindow({
       width: 1010,
       height: 720,
-     // autoHideMenuBar: true,
+      // autoHideMenuBar: true,
       icon: './src/public/img/chave-inglesa.png',
       resizable: false,
 
@@ -122,14 +141,14 @@ function oswindow(){
 
 
 let funcionarios
-function funcionarioswindow(){
+function funcionariosWindow() {
   nativeTheme.themeSource = 'light'
   const main = BrowserWindow.getFocusedWindow()
-  if(main) {
+  if (main) {
     funcionarios = new BrowserWindow({
       width: 1010,
       height: 720,
-     // autoHideMenuBar: true,
+      // autoHideMenuBar: true,
       icon: './src/public/img/automotivo.png',
       resizable: false,
 
@@ -143,6 +162,51 @@ function funcionarioswindow(){
 
 
 
+let motor
+function motorWindow() {
+  nativeTheme.themeSource = 'light'
+  const main = BrowserWindow.getFocusedWindow()
+  if (main) {
+    motor = new BrowserWindow({
+      width: 1010,
+      height: 720,
+      // autoHideMenuBar: true,
+      icon: './src/public/img/automotivo.png',
+      resizable: false,
+
+      parent: main,
+      modal: true
+    })
+  }
+  motor.loadFile('./src/views/motor.html')
+  motor.center()
+}
+
+
+
+let veiculos
+function veiculosWindow() {
+  nativeTheme.themeSource = 'light'
+  const main = BrowserWindow.getFocusedWindow()
+  if (main) {
+    veiculos = new BrowserWindow({
+      width: 1010,
+      height: 720,
+      // autoHideMenuBar: true,
+      icon: './src/public/img/automotivo.png',
+      resizable: false,
+
+      parent: main,
+      modal: true
+    })
+  }
+  veiculos.loadFile('./src/views/veiculos.html')
+  veiculos.center()
+}
+
+
+
+
 
 
 
@@ -150,155 +214,168 @@ function funcionarioswindow(){
 // iniciar aplicação
 app.whenReady().then(() => {
   createWindow()
- // aboutwindow()
+  // aboutwindow()
 })
 
 
 app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
-  })
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow()
+  }
+})
 
 
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
-  })
+  if (process.platform !== 'darwin') app.quit()
+})
 
 // reduzir logs
 
 app.commandLine.appendSwitch('log-level', '3')
-  
 
-  // template do menu
 
-  const template =[
-    {
-      label:'Cadastrar',
-      submenu: [
-          {
-            label: 'Clientes',
-            click: () => clientwindow()
-          },
-          {
-              label: 'Os',
-              click: () => oswindow()
-          },
+// template do menu
 
-          {
-            label: 'Funcionarios',
-            click: () => funcionarioswindow()
-        },
-
-      
-          {
-            type:'separator' 
-          },
-          {
-              label: 'Sair',
-              click: () => app.quit(),
-              accelerator: 'ALT+F4'
-          }
-  
-      ]      
+const template = [
+  {
+    label: 'Cadastrar',
+    submenu: [
+      {
+        label: 'Clientes',
+        click: () => clientWindow()
       },
-
-
       {
-        label:' Relatorios',
-        submenu: [
-          
-
-
-          {
-            label: 'Clientes',
-           
-          },
-            {
-                label: 'OS abertas',
-
-
-            },
-
-         {
-          label:  'OS concluidas',
-         }
-
-
-    
-
-
-            
-
-          
-
-          
-            
-        ]      
-    },
-      
-  
-      {
-          label:'  Arquivo',
-          submenu: [
-            
-
-
-            {
-              label: 'Janela Secundária',
-              click: () => childWindow()
-            },
-              {
-                  label: 'Sair',
-                  click: () => app.quit(),
-                  accelerator: 'ALT+F4'
-              }
-          ]      
+        label: 'Os',
+        click: () => osWindow()
       },
 
       {
-          label: 'Exibir',
-          submenu: [
-              {
-                  label:'Recarregar',
-                  role:'reload'
-              },
-              {
-                  label:'Ferramentas do desenvolvedor',
-                  role:'toggleDevTools' /* Exbir a tela de desenvolvimento */
-              },
-              {
-                  type:'separator' /* crua uma linha para separar grupos do submenu */
-              },
-              {
-                  label: 'Aplicar zoom',
-                  role: 'zoomIn'
-              },
-              {
-                  label: 'Reduzir',
-                  role: 'zoomOut'
-              },
-              {
-                  label: 'Restaurar o zoom padrão',
-                  role: 'ResetZoom'
-              }
-          ]      
+        label: 'Funcionarios',
+        click: () => funcionariosWindow()
+      },
+
+
+
+      {
+        label: 'Cadastro Do motor',
+        click: () => motorWindow()
+      },
+
+      {
+        label: 'Cadastro de Veiculos',
+        click: () => veiculosWindow()
+      },
+
+
+
+      {
+        type: 'separator'
       },
       {
-          label: 'Ajuda',
-          submenu: [
-            {
-              label: 'Docs',
-              click: () => shell.openExternal('https://github.com/lucashenriquepereirasilva/Lucas.TI')
-            },
-            {
-              type:'separator'
-            },
-            {
-              label: 'sobre',
-              click: () => aboutwindow ()
-            } 
-          ]
+        label: 'Sair',
+        click: () => app.quit(),
+        accelerator: 'ALT+F4'
       }
-  ]
+
+    ]
+  },
+
+
+  {
+    label: ' Relatorios',
+    submenu: [
+
+
+
+      {
+        label: 'Clientes',
+
+      },
+      {
+        label: 'OS abertas',
+
+
+      },
+
+      {
+        label: 'OS concluidas',
+      }
+
+
+
+
+
+
+
+
+
+
+
+    ]
+  },
+
+
+  {
+    label: '  Arquivo',
+    submenu: [
+
+
+
+      {
+        label: 'Janela Secundária',
+        click: () => childWindow()
+      },
+      {
+        label: 'Sair',
+        click: () => app.quit(),
+        accelerator: 'ALT+F4'
+      }
+    ]
+  },
+
+  {
+    label: 'Exibir',
+    submenu: [
+      {
+        label: 'Recarregar',
+        role: 'reload'
+      },
+      {
+        label: 'Ferramentas do desenvolvedor',
+        role: 'toggleDevTools' /* Exbir a tela de desenvolvimento */
+      },
+      {
+        type: 'separator' /* crua uma linha para separar grupos do submenu */
+      },
+      {
+        label: 'Aplicar zoom',
+        role: 'zoomIn'
+      },
+      {
+        label: 'Reduzir',
+        role: 'zoomOut'
+      },
+      {
+        label: 'Restaurar o zoom padrão',
+        role: 'ResetZoom'
+      }
+    ]
+  },
+  {
+    label: 'Ajuda',
+    submenu: [
+      {
+        label: 'Docs',
+        click: () => shell.openExternal('https://github.com/lucashenriquepereirasilva/Lucas.TI')
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'sobre',
+        click: () => aboutwindow()
+      }
+    ]
+  }
+]
