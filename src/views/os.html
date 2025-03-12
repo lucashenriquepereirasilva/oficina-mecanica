@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ordem de Serviço</title>
+    <style>
+        textarea {
+            overflow: hidden;
+            resize: none;
+        }
+    </style>
 </head>
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../public/css/bootstrap.min.css">
@@ -59,11 +65,19 @@
                 </select>
             </div>
 
-            <!-- Observações -->
-            <div class="col-md-12">
-                <label for="observations" class="form-label">Observações</label>
-                <textarea class="form-control" id="observations" rows="3" maxlength="200"></textarea>
-            </div>
+                <!-- Forma de pagamento -->
+                <div class="col-md-3">
+                    <label for="inputpagamentoClient" class="form-label">Forma de pagamento</label>
+                    <select type="text" class="form-select" id="inputpagamentoClient" spellcheck="false" required maxlength="20">
+                        <option value=""></option>
+                        <option>Pix</option>
+                        <option>Cartão Débito</option>
+                        <option>Cartão Crédito</option>
+                        <option>Dinheiro</option>
+                        <option>Boleto</option>
+                    </select>
+                   </div>
+        
 
             <!-- Botões -->
             <div class="mt-5">
