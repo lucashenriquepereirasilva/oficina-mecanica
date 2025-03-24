@@ -36,12 +36,20 @@ footer {
     bottom: 0;
     left: 0; /* Garante que o rodapé fique alinhado à esquerda */
     z-index: 1000; /* Garante que o rodapé esteja acima de outros elementos */
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: rgb(212, 139, 139);
 }
 
 footer p {
     color: #ffffff;
     padding-top: 7px;
-    margin: 0; /* Remove a margem padrão */
+    margin: 20px 20px; /* Remove a margem padrão */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 /* Ajuste para o conteúdo não ficar atrás do rodapé */
