@@ -14,7 +14,8 @@ contextBridge.exposeInMainWorld('api', {
     funcionariosWindow: () => ipcRenderer.send('funcionarios-window'),
     veiculosWindow: () => ipcRenderer.send('veiculos-window'),
     motorWindow: () => ipcRenderer.send('motor-window'),
-    dbStatus: (message) => ipcRenderer.on('db-status', message)
+    dbStatus: (message) => ipcRenderer.on('db-status', message),
+    newClient: (client) => ipcRenderer.send('new-client', client)
 
 })
 
