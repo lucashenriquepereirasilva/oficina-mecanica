@@ -15,8 +15,10 @@ contextBridge.exposeInMainWorld('api', {
     veiculosWindow: () => ipcRenderer.send('veiculos-window'),
     motorWindow: () => ipcRenderer.send('motor-window'),
     dbStatus: (message) => ipcRenderer.on('db-status', message),
-    newClient: (client) => ipcRenderer.send('new-client', client)
+    newClient: (client) => ipcRenderer.send('new-client', client),
+    newServiceOrder: (serviceOrder) => ipcRenderer.send('new-service-order', serviceOrder),
 
+    
 })
 
     function dbStatus(message){

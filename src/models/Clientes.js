@@ -69,6 +69,8 @@ const clienteSchema = new Schema({
     }
 }, {versionKey: false}) // não versionar ps dados armazenados
 
+
+
 // exportar para o main o modelo de dados
 // Obs : clientes será o nome da coleção
 module.exports = model('Clientes', clienteSchema)
