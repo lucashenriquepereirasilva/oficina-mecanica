@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ordem de Serviço</title>
+    <title>Ordem de Serviço - Oficina Mecânica</title>
     <style>
         textarea {
             overflow: hidden;
@@ -12,6 +12,7 @@
         }
     </style>
 </head>
+
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../public/css/bootstrap.min.css">
 <!-- CSS Personalizado -->
@@ -21,109 +22,104 @@
 
 <body>
     <div class="container">
-        <form class="mt-2 row g-3">
+        <form class="mt-2 row g-3" id="frmOrdemServico">
 
-            <!-- OS -->
+            <!-- Ordem de Serviço -->
             <div class="col-md-4">
-                <label class="form-label">Nº OS</label>
-                <input type="text" class="form-control" id="txtOs" disabled>
+                <label class="form-label">Número da OS</label>
+                <input type="text" class="form-control" id="numeroOS" disabled>
             </div>
 
-            <!-- Data -->
+            <!-- Data da Ordem -->
             <div class="col-md-3">
-                <label class="form-label">Data</label>
-                <input type="text" class="form-control" id="txtData" disabled>
+                <label class="form-label">Data da Ordem</label>
+                <input type="text" class="form-control" id="dataOrdem" disabled>
             </div>
 
-            <!-- Buscar cliente -->
+            <!-- Buscar Cliente -->
             <div class="col-md-5">
-                <label for="inputSearchClient" class="form-label">Buscar Cliente</label>
+                <label for="buscaCliente" class="form-label">Buscar Cliente</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="inputSearchClient" spellcheck="false" required maxlength="30">
+                    <input type="text" class="form-control" id="buscaCliente" spellcheck="false"  maxlength="30">
                     <span class="input-group-text">
                         <img src="../public/img/cliente.png" alt="lupa" width="20">
                     </span>
                 </div>
             </div>
 
-            <!-- Nome -->
+            <!-- Nome do Cliente -->
             <div class="col-md-5">
-                <label for="inputNameClient" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="inputNameClient" spellcheck="false" maxlength="30" disabled>
+                <label for="nomeCliente" class="form-label">Nome do Cliente</label>
+                <input type="text" class="form-control" id="nomeCliente" spellcheck="false" maxlength="30" disabled>
             </div>
 
-            <!-- Telefone -->
+            <!-- Telefone do Cliente -->
             <div class="col-md-3">
-                <label for="inputPhoneClient" class="form-label">Telefone</label>
-                <input type="text" class="form-control" id="inputPhoneClient" spellcheck="false" maxlength="15"
-                    disabled>
+                <label for="telefoneCliente" class="form-label">Telefone do Cliente</label>
+                <input type="text" class="form-control" id="telefoneCliente" spellcheck="false" maxlength="15" disabled>
             </div>
 
-            <!-- CPF -->
+            <!-- CPF ou CNPJ do Cliente -->
             <div class="col-md-4">
-                <label for="inputCPFClient" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="inputCPFClient" spellcheck="false" maxlength="15" disabled>
+                <label for="cpfCliente" class="form-label">CPF ou CNPJ</label>
+                <input type="text" class="form-control" id="cpfCnpjCliente" spellcheck="false" maxlength="18" disabled>
             </div>
 
-            <!-- Linha -->
             <hr class="mt-4 border border-secondary border -1">
-
-       
 
             <!-- Descrição do Serviço -->
             <div class="col-md-12">
-                <label for="serviceDescription" class="form-label">Descrição do Serviço</label>
-                <textarea class="form-control" id="serviceDescription" rows="3" maxlength="200" required></textarea>
+                <label for="descricaoServico" class="form-label">Descrição do Serviço</label>
+                <textarea class="form-control" id="descricaoServico" rows="3" maxlength="200" ></textarea>
             </div>
 
-            <!-- Data de Início -->
+            <!-- Data de Início do Serviço -->
             <div class="col-md-6">
-                <label for="startDate" class="form-label">Data de Início</label>
-                <input type="date" class="form-control" id="startDate" required>
+                <label for="dataInicioServico" class="form-label">Data de Início</label>
+                <input type="date" class="form-control" id="dataInicioServico" required>
             </div>
 
-            <!-- Data de Conclusão -->
+            <!-- Data de Conclusão do Serviço -->
             <div class="col-md-6">
-                <label for="endDate" class="form-label">Data de Conclusão</label>
-                <input type="date" class="form-control" id="endDate">
+                <label for="dataConclusaoServico" class="form-label">Data de Conclusão</label>
+                <input type="date" class="form-control" id="dataConclusaoServico">
             </div>
 
-            <!-- Status -->
+            <!-- Status do Serviço -->
             <div class="col-md-6">
-                <label for="status" class="form-label">Status</label>
-                <select class="form-select" id="status" name="status">
+                <label for="statusServico" class="form-label">Status da Ordem</label>
+                <select class="form-select" id="statusServico" name="status">
                     <option value="pendente">Pendente</option>
                     <option value="em andamento">Em andamento</option>
-                    <option value="concluída">Concluída</option>
+                    <option value="finalizado">Finalizado</option>
                 </select>
             </div>
 
-                <!-- Forma de pagamento -->
-                <div class="col-md-3">
-                    <label for="inputpagamentoClient" class="form-label">Forma de pagamento</label>
-                    <select type="text" class="form-select" id="inputpagamentoClient" spellcheck="false" required maxlength="20">
-                        <option value=""></option>
-                        <option>Pix</option>
-                        <option>Cartão Débito</option>
-                        <option>Cartão Crédito</option>
-                        <option>Dinheiro</option>
-                        <option>Boleto</option>
-                    </select>
-                   </div>
-        
+            <!-- Forma de Pagamento -->
+            <div class="col-md-3">
+                <label for="formaPagamento" class="form-label">Forma de Pagamento</label>
+                <select class="form-select" id="formaPagamento" spellcheck="false"  maxlength="20">
+                    <option value=""></option>
+                    <option>Pix</option>
+                    <option>Cartão Débito</option>
+                    <option>Cartão Crédito</option>
+                    <option>Dinheiro</option>
+                    <option>Boleto</option>
+                </select>
+            </div>
 
             <!-- Botões -->
             <div class="mt-5">
-                <button type="submit" class="btn btn-success" id="btnCreateOS">Criar Ordem de Serviço</button>
-                <button type="button" class="btn btn-warning" id="btnUpdateOS">Editar Ordem de Serviço</button>
-                <button type="button" class="btn btn-danger" id="btnDeleteOS">Excluir Ordem de Serviço</button>
-                <button type="reset" class="btn btn-secondary" id="btnResetOS">Limpar</button>
+                <button type="submit" class="btn btn-success" id="btnCriarOS">Criar Ordem de Serviço</button>
+                <button type="button" class="btn btn-warning" id="btnEditarOS">Editar Ordem de Serviço</button>
+                <button type="button" class="btn btn-danger" id="btnExcluirOS">Excluir Ordem de Serviço</button>
+                <button type="reset" class="btn btn-secondary" id="btnLimparOS">Limpar</button>
             </div>
         </form>
     </div>
 
     <!-- Bootstrap -->
     <script src="../public/js/bootstrap.min.js"></script>
-
+    <script src="../public/js/main.js"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@ contextBridge.exposeInMainWorld('api', {
     motorWindow: () => ipcRenderer.send('motor-window'),
     dbStatus: (message) => ipcRenderer.on('db-status', message),
     newClient: (client) => ipcRenderer.send('new-client', client),
-    newServiceOrder: (serviceOrder) => ipcRenderer.send('new-service-order', serviceOrder),
+    newOs: (os) => ipcRenderer.send('new-os', os)
 
     
 })

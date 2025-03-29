@@ -90,3 +90,41 @@ frmClient.addEventListener('submit', async (event) => {
 
 
 // == Fim CRUD Create/ Update
+
+
+//os CRUD
+
+
+//Pegar as informações da Os
+let frmOS = document.getElementById("frmOrdemServico")
+let BuscarOS = document.getElementById("buscaCliente")
+let ClienteOS = document.getElementById("nomeCliente")
+let PhoneOS = document.getElementById("telefoneCliente")
+let cpfOS = document.getElementById("cpfCliente")
+let ServicoOS = document.getElementById("descricaoServico")
+let DataInicioOS = getElementById("dataInicioServico")
+let ConclusaoOS = getElementById("dataConclusaoServico")
+let StatusOS = getElementById("statusServico")
+let PagamentoOS = getElementById("formaPagamento")
+//===================================================================
+frmOS.addEventListener("submit", async(event)=>{
+    event.preventDefault()
+    console.log(frmOS.value,BuscarOS.value,ClienteOS.value,PhoneOS.value,cpfOS.value,ServicoOS.value,DataInicioOS.value,ConclusaoOS.value, StatusOS.value,PagamentoOS.value)
+
+    const os = {
+        buscar: BuscarOS.value,
+        cliente: ClienteOS.value,
+        phone: PhoneOS.value,
+        cpf: cpfOS.value,
+        cor: ServicoOS.value,
+        data: DataInicioOS.value,
+        conclusao: ConclusaoOS.value,
+        status: StatusOS.value,
+        receber: PagamentoOS.value,
+      
+    }
+    api.newOs(os)
+    
+  // Exibir no console para verificar se os dados estão sendo capturados corretamente
+  console.log("Dados do Cliente:", os);
+})

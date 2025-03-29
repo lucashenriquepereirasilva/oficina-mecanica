@@ -11,6 +11,7 @@ const { conectar, desconectar } = require('./database.js')
 
 // importacão do Schema Cliente da camada model
 const clienteModel = require ('./src/models/Clientes.js')
+const osModel = require ("./src/models/OS.js")
 
 
 
@@ -460,3 +461,30 @@ const template = [
 
 
   // 
+
+
+  ipcMain.on('new-os', async (event,os)=>{
+    console.log(os)
+    try {
+      const newOs = new osModel({
+     
+        numeroOS: os.buscar,
+        dataOS: os.cliente,
+        nomeClienteOS: os.phone,
+        cpfClienteOS: os.cpf,
+        telefoneClienteOS: os.data,
+      status: os.conclusao,
+     funcionarioResponsavelOS: os.status,
+        modeloVeiculoOS: os.receber,
+        placaVeiculoOS: os.pecas,
+      anoVeiculoOS: os.acessorios,
+       corVeiculoOS: os.total,
+        formasPagamento: os.formasPagamento
+         
+  
+      })
+        await  newOs.save()
+    } catch (error) {
+      console.log(error)
+    }
+  })
