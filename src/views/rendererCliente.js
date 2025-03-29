@@ -100,7 +100,7 @@ let frmOS = document.getElementById("frmOrdemServico")
 let BuscarOS = document.getElementById("buscaCliente")
 let ClienteOS = document.getElementById("nomeCliente")
 let PhoneOS = document.getElementById("telefoneCliente")
-let cpfOS = document.getElementById("cpfCliente")
+let cpfOS = document.getElementById("cpfCnpjCliente")
 let ServicoOS = document.getElementById("descricaoServico")
 let DataInicioOS = getElementById("dataInicioServico")
 let ConclusaoOS = getElementById("dataConclusaoServico")
@@ -123,8 +123,9 @@ frmOS.addEventListener("submit", async(event)=>{
         receber: PagamentoOS.value,
       
     }
+    console.log("Dados do Cliente:", os);
     api.newOs(os)
     
   // Exibir no console para verificar se os dados estão sendo capturados corretamente
-  console.log("Dados do Cliente:", os);
+
 })

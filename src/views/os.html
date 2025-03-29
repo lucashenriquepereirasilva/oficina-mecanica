@@ -40,7 +40,7 @@
             <div class="col-md-5">
                 <label for="buscaCliente" class="form-label">Buscar Cliente</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="buscaCliente" spellcheck="false"  maxlength="30">
+                    <input type="text" class="form-control" id="buscaCliente" spellcheck="false" required maxlength="30">
                     <span class="input-group-text">
                         <img src="../public/img/cliente.png" alt="lupa" width="20">
                     </span>
@@ -50,18 +50,18 @@
             <!-- Nome do Cliente -->
             <div class="col-md-5">
                 <label for="nomeCliente" class="form-label">Nome do Cliente</label>
-                <input type="text" class="form-control" id="nomeCliente" spellcheck="false" maxlength="30" disabled>
+                <input type="text" class="form-control" id="nomeCliente" spellcheck="false" required maxlength="30" disabled>
             </div>
 
             <!-- Telefone do Cliente -->
             <div class="col-md-3">
                 <label for="telefoneCliente" class="form-label">Telefone do Cliente</label>
-                <input type="text" class="form-control" id="telefoneCliente" spellcheck="false" maxlength="15" disabled>
+                <input type="text" class="form-control" id="telefoneCliente" spellcheck="false"  required ="15" disabled>
             </div>
 
             <!-- CPF ou CNPJ do Cliente -->
             <div class="col-md-4">
-                <label for="cpfCliente" class="form-label">CPF ou CNPJ</label>
+                <label for="cpfCnpjCliente" class="form-label">CPF ou CNPJ</label>
                 <input type="text" class="form-control" id="cpfCnpjCliente" spellcheck="false" maxlength="18" disabled>
             </div>
 
@@ -70,7 +70,7 @@
             <!-- Descrição do Serviço -->
             <div class="col-md-12">
                 <label for="descricaoServico" class="form-label">Descrição do Serviço</label>
-                <textarea class="form-control" id="descricaoServico" rows="3" maxlength="200" ></textarea>
+                <textarea class="form-control" id="descricaoServico" rows="3" maxlength="200" required></textarea>
             </div>
 
             <!-- Data de Início do Serviço -->
@@ -98,7 +98,7 @@
             <!-- Forma de Pagamento -->
             <div class="col-md-3">
                 <label for="formaPagamento" class="form-label">Forma de Pagamento</label>
-                <select class="form-select" id="formaPagamento" spellcheck="false"  maxlength="20">
+                <select class="form-select" id="formaPagamento" spellcheck="false" required maxlength="20">
                     <option value=""></option>
                     <option>Pix</option>
                     <option>Cartão Débito</option>
