@@ -12,7 +12,7 @@ const osSchema = new Schema({
     modeloVeiculoOS: { type: String, required: true }, // Modelo do veículo
     placaVeiculoOS: { type: String, required: true }, // Placa do veículo
     anoVeiculoOS: { type: Number, required: true }, // Ano do veículo
-    corVeiculoOS: { type: String }, // Cor do veículo
+    corVeiculoOS: { type: String }, // Cor do veículoa
     tipoServicoOS: { type: String, required: true }, // Tipo de serviço realizado (ex: troca de óleo, revisão, etc.)
     descricaoProblemaOS: { type: String }, // Descrição do problema relatado pelo cliente
     observacaoClienteOS: { type: String }, // Observações fornecidas pelo cliente

@@ -97,35 +97,36 @@ frmClient.addEventListener('submit', async (event) => {
 
 //Pegar as informações da Os
 let frmOS = document.getElementById("frmOrdemServico")
-let BuscarOS = document.getElementById("buscaCliente")
-let ClienteOS = document.getElementById("nomeCliente")
-let PhoneOS = document.getElementById("telefoneCliente")
-let cpfOS = document.getElementById("cpfCnpjCliente")
-let ServicoOS = document.getElementById("descricaoServico")
-let DataInicioOS = getElementById("dataInicioServico")
-let ConclusaoOS = getElementById("dataConclusaoServico")
-let StatusOS = getElementById("statusServico")
-let PagamentoOS = getElementById("formaPagamento")
+let buscarOS = document.getElementById("buscaCliente")
+let nomeOs = document.getElementById("nomeCliente")
+let phoneOs = document.getElementById("telefoneCliente")
+let numS = document.getElementById("cpfCnpjCliente")
+let descrition = document.getElementById("descricaoServico")
+let servico = getElementById("dataInicioServico")
+let previsao = getElementById("inputprevisaoClient")
+let conclu = getElementById("dataConclusaoServico")
+let stat = getElementById("statusServico")
+let pag = getElementById("formaPagamento")
+
+
 //===================================================================
 frmOS.addEventListener("submit", async(event)=>{
     event.preventDefault()
-    console.log(frmOS.value,BuscarOS.value,ClienteOS.value,PhoneOS.value,cpfOS.value,ServicoOS.value,DataInicioOS.value,ConclusaoOS.value, StatusOS.value,PagamentoOS.value)
+    console.log(buscarOS.value,nomeOs.value,phoneOs.value,numS.value,descrition.value,servico.value,previsao.value,conclu.value,stat.value,pag)
+
 
     const os = {
-        buscar: BuscarOS.value,
-        cliente: ClienteOS.value,
-        phone: PhoneOS.value,
-        cpf: cpfOS.value,
-        cor: ServicoOS.value,
-        data: DataInicioOS.value,
-        conclusao: ConclusaoOS.value,
-        status: StatusOS.value,
-        receber: PagamentoOS.value,
-      
+        buscar: buscarOS.value,
+        nome: nomeOs.value,
+        bike: phoneOs.value,
+        numQuadro: numS.value,
+        desc: descrition.value,
+        service: servico.value,
+        previsaoEntrega: previsao.value,
+        obsCliente: conclu.value,
+        statobs: stat.value,
+        pagamento: pag.value,
+       
     }
-    console.log("Dados do Cliente:", os);
     api.newOs(os)
-    
-  // Exibir no console para verificar se os dados estão sendo capturados corretamente
-
 })

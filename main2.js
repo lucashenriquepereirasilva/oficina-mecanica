@@ -3,24 +3,28 @@
 const {conectar, desconectar} = require('./database.js')
 const clienteModel = require('./src/models/OS.js')
 
-const osSalvar = async (cpfCli,nomeCli,status,responsável,carros,phone,placa,ano,cor,ploblema,tecnico,pecas,ace,tot,pag)=> {
+const osSalvar = async (cpfCli,nomeCli,tele,funC,stat,respo,veiculo,placa,Ano,cor,tip,ploblemas,observacão,tot,pecas,ace,soma,pag)=> {
     try{
         const novoCliente = new clienteModel({
-          cpfCliente: cpfCli,
-          nomeCliente: nomeCli,
-          status: status,
-          funcionarioResponsavelOS: responsável,
-        modeloVeiculoOS: carros,
-          telefoneClientOS: phone,
+          cpfClienteOS: cpfCli,
+          nomeClienteOS: nomeCli,
+          telefoneClienteOS: tele,
+          funcionarioResponsavelOS: funC,
+          status: stat,
+          funcionarioResponsavelOS: responsavel,
+          modeloVeiculoOS: veiculo,
           placaVeiculoOS: placa,
-          anoVeiculoOS: ano,
+          anoVeiculoOS: Ano,
           corVeiculoOS: cor,
-          descricaoProblemaOS: ploblema,
-          conclusaoTecnicoOS: tecnico,
-          pecasTrocaOS: pecas,
-          acessoriosOS:  ace ,
-          totalOS: tot,
-          formasPagamentoOS: pag
+          tipoServicoOS: tip,
+          descricaoProblemaOS: ploblemas,
+          observacaoClienteOS: observacão,
+          conclusaoTecnicoOS: tot,
+         pecasTrocaOS: pecas,
+         acessoriosOS: ace,
+         totalOS: soma,
+         formasPagamentoOS: pag
+
         })
         await novoCliente.save()
         console.log("Os Salva")
@@ -35,7 +39,7 @@ const osSalvar = async (cpfCli,nomeCli,status,responsável,carros,phone,placa,an
 }
 const listarCliente = async ()=>{
     try{
-        const Clientes = await osModel.find()
+        const Clientes = await clienteModel.find()
         console.log(Clientes)
     }catch(error){
         console.log(error)
@@ -58,9 +62,10 @@ const buscarClienteCPF = async(cpf)=>{
     }
 }
 
-const atualizarCliente = async (id,cpfCli,nomeCli,status,responsável,carros,phone,placa,ano,cor,ploblema,tecnico,pecas,ace,tot,pag)=>{
+const atualizarCliente = async (id,cpfCli,nomeCli,status,funC,bic,bicS,cor,tip,prev,obsC,obsT,pecas,acessorios,tot,pag)=>{
     try {
-        const clienteEditado = await osModel.findByIdAndUpdate(id,{nomeCliente: nomeCli,cpfCliente: cpfCli,status: status, funcionarioResponsavel: responsável, modeloVeiculoOS: carros, telefoneClientOS:phone,placaVeiculoOS: placa,anoVeiculoOS: ano, corVeiculoOS: cor,descricaoProblemaOS: ploblema,conclusaoTecnicoOS: tecnico,pecasTrocaOS: pecas,acessoriosOS:ace, total: tot,formasPagamentoOS:pag })
+        const clienteEditado = await clienteModel.findByIdAndUpdate(id,{nomeClienteOS: nomeCli,cpfClienteOS: 
+        cpfCli,telefoneClienteOS: tele, funcionarioResponsavelOS: funC, status: stat, funcionarioResponsavelOS:responsavel,modeloVeiculoOS: veiculo,placaVeiculoOS: placa, anoVeiculoOS: Ano,corVeiculoOS: cor,tipoServicoOS: tip,descricaoProblemaOS: ploblemas,observacaoClienteOS:observacão, conclusaoTecnicoOS: tot,pecasTrocaOS: pecas, acessoriosOS:ace, totalOS:soma, formasPagamentoOS: pag })
         console.log("OS Atualizada")
     } catch (error) {
         if(error.code = 11000){
@@ -88,7 +93,7 @@ const Iniciarsistema = async ()=> {
   console.log("------------------")
   await conectar()
   //await listarCliente()
-  //await osSalvar("12345678","luca","Aberta","Toninho","caloi","11091","Preta","Preventiva","10/04/05","Trocar a corrente","Trocar a corrente por uma nova modelo 05","Corrente", "Bolsa pequena e uma lanterna dianteira",1250,"Dinheiro")
+  //await osSalvar("123456789000","luca","Aberta","Toninho","caloi","11091","Preta","Preventiva","10/04/05","Trocar a corrente","Trocar a corrente por uma nova modelo 05","Corrente", "Bolsa pequena e uma lanterna dianteira",1250,"Dinheiro")
    // await buscarClienteNome("gabriel")
   //await buscarClienteCPF("44909123")
   //await atualizarCliente("67e43e01d73e7a27dd3af8e0","123456789000","gabriel","Aberta","pituca","caloi","11091","vermelha","Corretiva","10/04/06","Trocar a corrente","Trocar a corrente por uma nova modelo 05","Corrente", "Bolsa pequena e uma lanterna dianteira",1250,"Dinheiro")
