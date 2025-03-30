@@ -11,7 +11,7 @@ const { conectar, desconectar } = require('./database.js')
 
 // importacão do Schema Cliente da camada model
 const clienteModel = require ('./src/models/Clientes.js')
-const osModel = require ("./src/models/OS.js")
+
 
 
 
@@ -209,7 +209,7 @@ function veiculosWindow() {
 // iniciar aplicação
 app.whenReady().then(() => {
   createWindow()
-  // aboutwindow()
+  //aboutwindow()
 })
 
 
@@ -466,7 +466,7 @@ const template = [
   ipcMain.on('new-os', async (event,os)=>{
     console.log(os)
     try {
-      const newOs = new osModel({
+      const newOs = new clienteModel({
      
         numeroOS: os.buscar,
         dataOS: os.cliente,

@@ -1,5 +1,5 @@
+// src/models/OS.js
 const { model, Schema } = require('mongoose');
-const { type } = require('os')
 
 const osSchema = new Schema({
     numeroOS: { type: String, required: true }, // Número da OS
@@ -12,17 +12,17 @@ const osSchema = new Schema({
     modeloVeiculoOS: { type: String, required: true }, // Modelo do veículo
     placaVeiculoOS: { type: String, required: true }, // Placa do veículo
     anoVeiculoOS: { type: Number, required: true }, // Ano do veículo
-    corVeiculoOS: { type: String }, // Cor do veículoa
-    tipoServicoOS: { type: String, required: true }, // Tipo de serviço realizado (ex: troca de óleo, revisão, etc.)
-    descricaoProblemaOS: { type: String }, // Descrição do problema relatado pelo cliente
-    observacaoClienteOS: { type: String }, // Observações fornecidas pelo cliente
-    conclusaoTecnicoOS: { type: String }, // Conclusão do técnico sobre o serviço realizado
-    pecasTrocaOS: { type: String }, // Peças que foram trocadas
-    acessoriosOS: { type: String }, // Acessórios envolvidos no serviço
+    corVeiculoOS: { type: String }, // Cor do veículo
+    tipoServicoOS: { type: String, required: true }, // Tipo de serviço realizado
+    descricaoProblemaOS: { type: String }, // Descrição do problema
+    observacaoClienteOS: { type: String }, // Observações do cliente
+    conclusaoTecnicoOS: { type: String }, // Conclusão do técnico
+    pecasTrocaOS: { type: String }, // Peças trocadas
+    acessoriosOS: { type: String }, // Acessórios envolvidos
     totalOS: { type: Number, required: true }, // Valor total da OS
     formasPagamentoOS: { 
-        type: [String], // Lista de formas de pagamento utilizadas
-        enum: ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito', 'PIX', 'Transferência'], 
+        type: [String], // Lista de formas de pagamento
+        enum: ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito', 'PIX', 'Transferência'],
     }
 }, { versionKey: false });
 

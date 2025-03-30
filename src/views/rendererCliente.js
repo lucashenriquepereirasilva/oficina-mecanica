@@ -118,15 +118,16 @@ frmOS.addEventListener("submit", async(event)=>{
     const os = {
         buscar: buscarOS.value,
         nome: nomeOs.value,
-        bike: phoneOs.value,
+        phone: phoneOs.value,
         numQuadro: numS.value,
         desc: descrition.value,
         service: servico.value,
         previsaoEntrega: previsao.value,
         obsCliente: conclu.value,
         statobs: stat.value,
-        pagamento: pag.value,
+        pagamento: pagamento.value,
        
     }
     api.newOs(os)
+    
 })
