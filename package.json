@@ -18,10 +18,11 @@
   },
   "homepage": "https://github.com/lucashenriquepereirasilva/projeto_avaliativo#readme",
   "devDependencies": {
-    "electron": "^34.3.2"
+    "electron": "^34.4.1"
   },
   "dependencies": {
     "express": "^4.21.2",
+    "jspdf": "^3.0.1",
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.1"
   }

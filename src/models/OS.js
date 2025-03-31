@@ -1,29 +1,41 @@
-// src/models/OS.js
-const { model, Schema } = require('mongoose');
+/**
+ * Modelo de dados para construção das coleções("tabelas")
+ * clientes 
+ */
 
-const osSchema = new Schema({
-    numeroOS: { type: String, required: true }, // Número da OS
-    dataOS: { type: Date, default: Date.now }, // Data de criação da OS
-    nomeClienteOS: { type: String, required: true }, // Nome do cliente
-    cpfClienteOS: { type: String, unique: true, index: true, required: true }, // CPF do cliente
-    telefoneClienteOS: { type: String, required: true }, // Telefone do cliente
-    status: { type: String, enum: ['Aberta', 'Em andamento', 'Concluída', 'Cancelada'], default: 'Aberta' }, // Status da OS
-    funcionarioResponsavelOS: { type: String, required: true }, // Nome do funcionário responsável
-    modeloVeiculoOS: { type: String, required: true }, // Modelo do veículo
-    placaVeiculoOS: { type: String, required: true }, // Placa do veículo
-    anoVeiculoOS: { type: Number, required: true }, // Ano do veículo
-    corVeiculoOS: { type: String }, // Cor do veículo
-    tipoServicoOS: { type: String, required: true }, // Tipo de serviço realizado
-    descricaoProblemaOS: { type: String }, // Descrição do problema
-    observacaoClienteOS: { type: String }, // Observações do cliente
-    conclusaoTecnicoOS: { type: String }, // Conclusão do técnico
-    pecasTrocaOS: { type: String }, // Peças trocadas
-    acessoriosOS: { type: String }, // Acessórios envolvidos
-    totalOS: { type: Number, required: true }, // Valor total da OS
-    formasPagamentoOS: { 
-        type: [String], // Lista de formas de pagamento
-        enum: ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito', 'PIX', 'Transferência'],
+//Importação dos recursos do framework mongoose
+const {model, Schema} = require('mongoose')
+const { version, type } = require('os')
+
+//Criação da estrutura da coleção Clientes
+const cadastroOS = new Schema({
+    nomeCliente: {
+        type: String
+    },
+    valor: {
+        type: String
+    },
+    prazo: {
+        type: String
+    },
+    dadosEquipa: {
+        type: String
+    },
+    problemaCliente: {
+        type: String
+    },
+    diagTecnico: {
+        type: String
+    },
+    pecasReparo: {
+        type: String
+    },
+    statusOS: {
+        type: String
     }
-}, { versionKey: false });
+}, {versionKey: false}) //Não versionar os dados armazenadas
 
-module.exports = model('OS', osSchema);
+//Exportar para o main o modelo de dados
+//Clientes será o nome da coleção
+
+module.exports = model('OS', cadastroOS)

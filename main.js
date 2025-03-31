@@ -2,7 +2,7 @@ console.log("processo Principal")
 console.log(`Electron: ${process.versions.electron}`)
 
 
-const { app, BrowserWindow, nativeTheme, Menu, ipcMain } = require('electron')
+const { app, BrowserWindow, nativeTheme, Menu, ipcMain, dialog , shell} = require('electron')
 // essa linha esta relacionada ao preload.js
 const path = require('node:path');
 
@@ -10,7 +10,15 @@ const path = require('node:path');
 const { conectar, desconectar } = require('./database.js')
 
 // importacão do Schema Cliente da camada model
-const clienteModel = require ('./src/models/Clientes.js')
+const clienteModel = require ('./src/models/Clientes.js');
+// importação do pacote jspdf
+
+const { jspdf, default: jsPDF} = require('jspdf')
+
+// importação da biblioteca fs(nativa do javascript) para a manipulação de arquivos
+const fs = require('fs')
+
+
 
 
 
@@ -308,6 +316,7 @@ const template = [
 
       {
         label: 'Clientes',
+        click: () => relatorioClientes()
 
       },
       {
@@ -445,14 +454,48 @@ const template = [
       })
       // salvar os dados do cliente no banco de dados
       await newClient.save()
+      // mensagem  de confirmação
+      dialog.showMessageBox({
+        type: 'info',
+        title: "Aviso",
+        message: "cliente adicionado com sucesso",
+        buttons: ['OK']
+      }).then((result)=>{
+        // acão pressionar o botão
+        if(result.response === 0 ) {
+          // enviar um pedido para o renderizador limpar os dados
+          event.reply('reset-form')
+        }
+
+      })
     
      
       
     } catch(error) {
+      // se o codigo de erro for 11000  (cpf duplicado) enviar uma mensagem ao usuario
+      if(error.code === 11000) {
+        dialog.showMessageBox({
+          type: 'error',
+          title: "Atenção!",
+          message: "CPF Já está cadastrado\n verifique de digitou corretamente",
+          buttons: ['OK'],
+        }).then((result)=>{
+          if(result.response === 0){
+            //limpar a caixa de input do cpf, focar essa caixa e deixar a borda em vermelho
+
+
+          }
+       
+
+        })
+      }
       console.log(error)
     }
 
   })
+  
+
+  
 
 
 
@@ -460,8 +503,46 @@ const template = [
   // ==================================
 
 
-  // 
+//  =================
+  // realtorio dos clientes
+  async function relatorioClientes(){
+    try{
+      //passo 1 : consultar o banco de dados e obter a linguagem
+       //de clientes cadastrados por ordem alfabetica
+       const clientes = await clienteModel.find().sort({nomeCliente: 1})
+       //console.log(clientes)
+       const doc = new jsPDF('p', 'mm', 'a4')
+       // definir o tamanho da fonte
+       doc.setFontSize(26)
+       //escrever um (titulo)
+       doc.text("Relatorio de clientes", 14, 20)// x, y (mm)
 
+       // inserir a data atual no relatorio
+       const dataAtual = new Date().toLocaleDateString('pt-br')
+       doc.setFontSize(12)
+       doc.text(`Data: ${dataAtual}`, 160, 10)
+      let y =45
+      doc.text("Nome", 14, y)
+      doc.text("Telefone", 80, y)
+      doc.text("Email", 130, y)
+      y +=5
+      // desenhar uma linha
+      doc.setLineWidth(0.5) // expressura da linha
+      doc.line(10, y, 200, y) // 10 inicio --- 200 (fim)
+       //...
+
+
+       // definir o tamanho do arquivo temporario
+       const tempDir = app.getPath('temp')
+       const filePath = path.join(tempDir, 'clientes.pdf')
+       // salvar temporariamente o arquivo
+       doc.save(filePath)
+       //abrir o arquivo no apliactivo padrao de leitura de pdf dp compuador do usuario
+       shell.openPath(filePath)
+    }catch(error){
+      console.log(error)
+    }
+  }
 
   ipcMain.on('new-os', async (event,os)=>{
     console.log(os)
