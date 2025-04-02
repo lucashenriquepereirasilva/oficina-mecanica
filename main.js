@@ -2,7 +2,7 @@ console.log("processo Principal")
 console.log(`Electron: ${process.versions.electron}`)
 
 
-const { app, BrowserWindow, nativeTheme, Menu, ipcMain, dialog , shell} = require('electron')
+const { app, BrowserWindow, nativeTheme, Menu, ipcMain, dialog, shell } = require('electron')
 // essa linha esta relacionada ao preload.js
 const path = require('node:path');
 
@@ -10,10 +10,10 @@ const path = require('node:path');
 const { conectar, desconectar } = require('./database.js')
 
 // importacão do Schema Cliente da camada model
-const clienteModel = require ('./src/models/Clientes.js');
+const clienteModel = require('./src/models/Clientes.js');
 // importação do pacote jspdf
 
-const { jspdf, default: jsPDF} = require('jspdf')
+const { jspdf, default: jsPDF } = require('jspdf')
 
 // importação da biblioteca fs(nativa do javascript) para a manipulação de arquivos
 const fs = require('fs')
@@ -409,163 +409,196 @@ const template = [
 
 
 
-  // recebimento dos pedidos  do renderizador para a abertura das janelas
-  ipcMain.on('client-window', () => {
-    clientWindow()
-  })
+// recebimento dos pedidos  do renderizador para a abertura das janelas
+ipcMain.on('client-window', () => {
+  clientWindow()
+})
 
-  ipcMain.on('os-window', () => {
-    osWindow()
-  })
+ipcMain.on('os-window', () => {
+  osWindow()
+})
 
-  ipcMain.on('motor-window', () => {
-    motorWindow()
-  })
+ipcMain.on('motor-window', () => {
+  motorWindow()
+})
 
-  ipcMain.on('veiculos-window', () => {
-    veiculosWindow()
-  })
+ipcMain.on('veiculos-window', () => {
+  veiculosWindow()
+})
 
-  // ================================
-  // == clientes - CRUD Create
-  // recebimento do objeto que contém os dados do cliente
-  ipcMain.on('new-client', async (event, client) => {
-    // importante! Teste de recebimento dos dados do cliente
-    console.log(client)
-    // Cadastrar a estrutura de dados no banco de dados MongoDB
-    try{
-      // criar uma nova estrutura de dados usando a classe modelo
-      // modelo. Atenção os atributos precisam ser identicos
-      // ao modelo de dados do clientes.js e os valores são definidos pelo conteúdo do objeto cliente
-      const newClient = new clienteModel({
-        nomeCliente: client.nameCli,
-        cpfCliente:  client.cpfCli,
-        emailCliente: client.emailCli,
-        foneCliente: client.phoneCli,
-        cepCliente:   client.cepCli,
-        logradouroCliente:  client. logradouroCli,
-        numeroCliente:   client.numeroCli,
-        complementoCliente: client.  complementCli,
-        bairroCliente: client. bairroCli,
-        cidadeCliente: client.  cidadeCli,
-        ufCli: client. ufCli,
+// ================================
+// == clientes - CRUD Create
+// recebimento do objeto que contém os dados do cliente
+ipcMain.on('new-client', async (event, client) => {
+  // importante! Teste de recebimento dos dados do cliente
+  console.log(client)
+  // Cadastrar a estrutura de dados no banco de dados MongoDB
+  try {
+    // criar uma nova estrutura de dados usando a classe modelo
+    // modelo. Atenção os atributos precisam ser identicos
+    // ao modelo de dados do clientes.js e os valores são definidos pelo conteúdo do objeto cliente
+    const newClient = new clienteModel({
+      nomeCliente: client.nameCli,
+      cpfCliente: client.cpfCli,
+      emailCliente: client.emailCli,
+      foneCliente: client.phoneCli,
+      cepCliente: client.cepCli,
+      logradouroCliente: client.logradouroCli,
+      numeroCliente: client.numeroCli,
+      complementoCliente: client.complementCli,
+      bairroCliente: client.bairroCli,
+      cidadeCliente: client.cidadeCli,
+      ufCli: client.ufCli,
 
-   
-      })
-      // salvar os dados do cliente no banco de dados
-      await newClient.save()
-      // mensagem  de confirmação
+
+    })
+    // salvar os dados do cliente no banco de dados
+    await newClient.save()
+    // mensagem  de confirmação
+    dialog.showMessageBox({
+      type: 'info',
+      title: "Aviso",
+      message: "cliente adicionado com sucesso",
+      buttons: ['OK']
+    }).then((result) => {
+      // acão pressionar o botão
+      if (result.response === 0) {
+
+
+        // enviar um pedido para o renderizador limpar os dados
+        event.reply('reset-f')
+      }
+
+    })
+
+
+
+  } catch (error) {
+    // se o codigo de erro for 11000  (cpf duplicado) enviar uma mensagem ao usuario
+    if (error.code === 11000) {
       dialog.showMessageBox({
-        type: 'info',
-        title: "Aviso",
-        message: "cliente adicionado com sucesso",
-        buttons: ['OK']
-      }).then((result)=>{
-        // acão pressionar o botão
-        if(result.response === 0 ) {
-          // enviar um pedido para o renderizador limpar os dados
-          event.reply('reset-form')
+        type: 'error',
+        title: "Atenção!",
+        message: "CPF Já está cadastrado\n verifique de digitou corretamente",
+        buttons: ['OK'],
+      }).then((result) => {
+        if (result.response === 0) {
+          //limpar a caixa de input do cpf, focar essa caixa e deixar a borda em vermelho
+
+
         }
 
+
       })
-    
-     
-      
-    } catch(error) {
-      // se o codigo de erro for 11000  (cpf duplicado) enviar uma mensagem ao usuario
-      if(error.code === 11000) {
-        dialog.showMessageBox({
-          type: 'error',
-          title: "Atenção!",
-          message: "CPF Já está cadastrado\n verifique de digitou corretamente",
-          buttons: ['OK'],
-        }).then((result)=>{
-          if(result.response === 0){
-            //limpar a caixa de input do cpf, focar essa caixa e deixar a borda em vermelho
-
-
-          }
-       
-
-        })
-      }
-      console.log(error)
     }
+    console.log(error)
+  }
 
-  })
-  
-
-  
-
+})
 
 
-  // fim - clientes - crud create
-  // ==================================
+
+
+
+
+// fim - clientes - crud create
+// ==================================
 
 
 //  =================
-  // realtorio dos clientes
-  async function relatorioClientes(){
-    try{
-      //passo 1 : consultar o banco de dados e obter a linguagem
-       //de clientes cadastrados por ordem alfabetica
-       const clientes = await clienteModel.find().sort({nomeCliente: 1})
-       //console.log(clientes)
-       const doc = new jsPDF('p', 'mm', 'a4')
-       // definir o tamanho da fonte
-       doc.setFontSize(26)
-       //escrever um (titulo)
-       doc.text("Relatorio de clientes", 14, 20)// x, y (mm)
+// realtorio dos clientes
+async function relatorioClientes() {
+  try {
+    //passo 1 : consultar o banco de dados e obter a linguagem
+    //de clientes cadastrados por ordem alfabetica
+    // passo 2: Formatação do documento pdf
+    //p - portraint | l - landscape | mm e a4  (folha a4)
+    // (210x297mm)
 
-       // inserir a data atual no relatorio
-       const dataAtual = new Date().toLocaleDateString('pt-br')
-       doc.setFontSize(12)
-       doc.text(`Data: ${dataAtual}`, 160, 10)
-      let y =45
-      doc.text("Nome", 14, y)
-      doc.text("Telefone", 80, y)
-      doc.text("Email", 130, y)
-      y +=5
+    const clientes = await clienteModel.find().sort({ nomeCliente: 1 })
+    //console.log(clientes)
+    const doc = new jsPDF('p', 'mm', 'a4')
+
+    // inserir imagem no documento pdf
+    // caminho da imagem que será  inserida
+    // imagebase64 (uso da biblioteca fs  para ler o arquivo no formato png)
+    const imagePath = path.join(__dirname, 'src', 'public', 'img', 'ds.png')
+    const imageBase64 = fs.readFileSync(imagePath, { encoding: 'base64' })
+
+    doc.addImage(imageBase64, 'PNG', 5, 8) // (5mm, 8mm x,y)
+    // definir o tamanho da fonte
+    doc.setFontSize(18)
+    //escrever um (titulo)
+    doc.text("Relatorio de clientes", 14, 50)// x, y (mm)
+
+    // inserir a data atual no relatorio
+    const dataAtual = new Date().toLocaleDateString('pt-br')
+    doc.setFontSize(12)
+    doc.text(`Data: ${dataAtual}`, 160, 10)
+    let y = 60
+    doc.text("Nome", 14, y)
+    doc.text("Telefone", 80, y)
+    doc.text("Email", 130, y)
+    y += 5
+    // desenhar uma linha
+    doc.setLineWidth(0.5) // expressura da linha
+    doc.line(10, y, 200, y) // 10 inicio --- 200 (fim)
+    //...
+
+    // renderizar  os clientes cadastrados no banco
+    y += 10 // espacamento da linha
+    // percorrer o valor clientes(obtido do banco) usando o laço
+    // foreach
+    clientes.forEach((c) => {
+      // adicionar outra pagína se a folha inteira for preenchida (estratégia e saber o tamanho da folha)
+      // folha a4 y = 297mm
+      if (y > 280) {
+        doc.addPage()
+        y = 20 // resetar a variavel 20
+        // redesenhar o cabecalho
+        doc.text("Nome", 14, y)
+        doc.text("Telefone", 80, y)
+        doc.text("Email", 130, y)
+        y += 5
+        doc.setLineWidth(0.5) // expressura da linha
+        doc.line(10, y, 200, y) // 10 inicio --- 200 (fim)
+        //...
+      }
+      doc.text(c.nomeCliente, 14, y),
+        doc.text(c.foneCliente, 80, y),
+        doc.text(c.emailCliente || "N/A", 130, y)
+      y += 10 // quebra de linha
       // desenhar uma linha
-      doc.setLineWidth(0.5) // expressura da linha
-      doc.line(10, y, 200, y) // 10 inicio --- 200 (fim)
-       //...
 
+    })
 
-       // definir o tamanho do arquivo temporario
-       const tempDir = app.getPath('temp')
-       const filePath = path.join(tempDir, 'clientes.pdf')
-       // salvar temporariamente o arquivo
-       doc.save(filePath)
-       //abrir o arquivo no apliactivo padrao de leitura de pdf dp compuador do usuario
-       shell.openPath(filePath)
-    }catch(error){
-      console.log(error)
+    // adicionar numeração automatica de paginas
+    const paginas = doc.internal.getNumberOfPages()
+    for (let i = 1; i <= paginas; i++) {
+      doc.setPage(i)
+      doc.setFontSize(10)
+      doc.text(`Pagína ${i} de ${paginas}`, 105, 290, { align: 'center' })
     }
+
+
+
+
+
+
+
+    // definir o tamanho do arquivo temporario
+    const tempDir = app.getPath('temp')
+    const filePath = path.join(tempDir, 'clientes.pdf')
+
+
+
+
+    // salvar temporariamente o arquivo
+    doc.save(filePath)
+    //abrir o arquivo no apliactivo padrao de leitura de pdf dp compuador do usuario
+    shell.openPath(filePath)
+  } catch (error) {
+    console.log(error)
   }
+}
 
-  ipcMain.on('new-os', async (event,os)=>{
-    console.log(os)
-    try {
-      const newOs = new clienteModel({
-     
-        numeroOS: os.buscar,
-        dataOS: os.cliente,
-        nomeClienteOS: os.phone,
-        cpfClienteOS: os.cpf,
-        telefoneClienteOS: os.data,
-      status: os.conclusao,
-     funcionarioResponsavelOS: os.status,
-        modeloVeiculoOS: os.receber,
-        placaVeiculoOS: os.pecas,
-      anoVeiculoOS: os.acessorios,
-       corVeiculoOS: os.total,
-        formasPagamento: os.formasPagamento
-         
-  
-      })
-        await  newOs.save()
-    } catch (error) {
-      console.log(error)
-    }
-  })

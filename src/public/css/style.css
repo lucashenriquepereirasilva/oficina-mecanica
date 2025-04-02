@@ -26,10 +26,20 @@
     margin-left: 10px;
 }
 
+#logo {
+    position: fixed;
+height: 300px;
+
+    bottom: 0px;
+    right: 5px;
+    border: none;
+    cursor: none;
+}
+
 /* Rodapé fixo */
 footer {
     width: 100%;
-    height: 50px;
+    height: 42px;
     text-align: center;
     background-color: rgb(35, 35, 37);
     position: fixed;
@@ -57,3 +67,4 @@ body {
     padding-bottom: 60px; /* Ajuste para evitar que o conteúdo fique atrás do rodapé */
   
 }
+

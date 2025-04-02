@@ -7,33 +7,42 @@
 const {model, Schema} = require('mongoose')
 const { version, type } = require('os')
 
-//Criação da estrutura da coleção Clientes
-const cadastroOS = new Schema({
-    nomeCliente: {
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const OrdemServicoSchema = new Schema({
+    clienteNome: {
+        type: String,
+        required: true
+    },
+    custoTotal: {
+        type: Number,
+        required: true
+    },
+    dataEntrega: {
+        type: Date
+    },
+    equipeResponsavel: {
         type: String
     },
-    valor: {
+    descricaoProblema: {
+        type: String,
+        required: true
+    },
+    diagnosticoTecnico: {
         type: String
     },
-    prazo: {
-        type: String
+    listaPecas: {
+        type: [String]  // Lista de peças utilizadas no reparo
     },
-    dadosEquipa: {
-        type: String
-    },
-    problemaCliente: {
-        type: String
-    },
-    diagTecnico: {
-        type: String
-    },
-    pecasReparo: {
-        type: String
-    },
-    statusOS: {
-        type: String
+    statusOrdem: {
+        type: String,
+        enum: ['Aberto', 'Em andamento', 'Concluído', 'Cancelado'],
+        default: 'Aberto'
     }
-}, {versionKey: false}) //Não versionar os dados armazenadas
+}, { versionKey: false, timestamps: true }); // Adiciona campos createdAt e updatedAt automaticamente
+
+module.exports = mongoose.model('OrdemServico', OrdemServicoSchema);
 
 //Exportar para o main o modelo de dados
 //Clientes será o nome da coleção

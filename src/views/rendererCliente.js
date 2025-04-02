@@ -95,30 +95,19 @@ frmClient.addEventListener('submit', async (event) => {
 //os CRUD
 
 
-//Pegar as informações da Os
-let frmOS = document.getElementById("frmOrdemServico")
-let buscarOS = document.getElementById("buscaCliente")
-let nomeOs = document.getElementById("nomeCliente")
-let phoneOs = document.getElementById("telefoneCliente")
-let numS = document.getElementById("cpfCnpjCliente")
-let descrition = document.getElementById("descricaoServico")
-let servico = getElementById("dataInicioServico")
-let previsao = getElementById("inputprevisaoClient")
-let conclu = getElementById("dataConclusaoServico")
-let stat = getElementById("statusServico")
-let pag = getElementById("formaPagamento")
+
 
 
 // reset form
 function resetForm(){
   // limpa os campos e resetar o formulario com as configuracoes
-  location.reload
+  location.reload()
 }
 
 
-recebimento
-api.resetForm((args) => {
-  resetForm()
+api.resetF((args) => {
+  console.log("teste de recebimento")
+ // resetF()
 })
 
 // === Função para aplicar máscara no CPF ===
@@ -182,7 +171,7 @@ frmClient.addEventListener('submit', async (event) =>{
   //evitar o comportamento padrao do submit que é enviar os dados do formulario e reiniciar o documento html
   event.preventDefault()
   //Teste importante ( recebimento dos dados do formulario - passo 1 do fluxo)
-  console.log(nameClient.value, cpfClient.value, emailClient.value, telefoneClient.value, cepClient.value, AddressClient.value, numeroClient.value, ComplementClient.value, bairroClient.value, CityClient.value, ufClient.value);
+  console.log(nameClient.value, cpfClient.value, emailClient.value, telefoneClient.value, cepClient.value, logradouroClient.value, numeroClient.value, complementClient.value, bairroClient.value, cidadeClient.value, ufClient.value);
 
   // Limpa o CPF antes de salvar no banco
   let cpfSemFormatacao = cpfClient.value.replace(/\D/g, "");
@@ -190,15 +179,15 @@ frmClient.addEventListener('submit', async (event) =>{
   // Criar um objeto para armazenar os dados do cliente amtes de enviar ao main
   const client = {
       nameCli: nameClient.value,
-      cpfCli: cpfSemFormatacao,
+      cpfCli: cpfClient.value,
       emailCli: emailClient.value,
       telefoneCli: telefoneClient.value,
       cepCli: cepClient.value,
-      AddressCli: AddressClient.value,
+      AddressCli: logradouroClient.value,
       numeroCli: numeroClient.value,
-      ComplementCli: ComplementClient.value,
+      ComplementCli: complementClient.value,
       bairroCli: bairroClient.value,
-      CityCli: CityClient.value,
+      CityCli: cidadeClient.value,
       ufCli: ufClient.value
   }
   // Enviar ao main o objeto client - (Passo 2: fluxo)

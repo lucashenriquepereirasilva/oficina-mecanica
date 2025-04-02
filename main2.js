@@ -1,7 +1,7 @@
 /**
  * Porecsso principal
  * Estudo do banco de dados MongoDB (CRUD)
- * @author Davi do couto
+ * @author Lucas henrique
  */
 
 //Importação do módulo de conexão
@@ -69,19 +69,19 @@ const buscarOSNome = async (nome) => {
 
 //Função para editar os dados da OS
 //ATENÇÃO: usar o id da OS
-const atualizarOS = async (id, cpfCli, nomeCli, prazo, dadosEq, problemaCli, diagTecnico, pecasReparo, statusOS) => {
+const atualizarOS = async (id,  clienteNome, custoTotal, problemaCliente,   dataEntrega,  equipeResponsavel ,  descricaoProblema,   diagnosticoTecnico , statusOrdem, listaPecas,  ) => {
     try{
         const osAlterada = await clienteModel.findByIdAndUpdate(
             id,
             {
-                nomeCliente: nomeCli,
-                prazo: prazo,
-                valor: valorOS,
-                dadosEquipa: dadosEq,
-                problemaCliente: problemaCli,
-                diagTecnico: diagTecnico,
-                pecasReparo: pecasReparo,
-                statusOS: statusOS
+            
+                clienteNome: nome,
+                custoTotal: prazo,
+                dataEntrega: dadosEt,
+                descricaoProblema: problemaCli,
+                equipeResponsavel:  diagTecnico,
+                diagnosticoTecnico:  pecasReparo,
+                statusOrdem: statusOS
             },
             {
                 new: true,
@@ -108,6 +108,30 @@ const excluirCliente = async (id) => {
         console.log(error)
     }
 }
+ipcMain.on('new-os', async (event, os) => {
+    console.log(os)
+    try {
+      const newOs = new clienteModel({
+  
+        nomeCliente: os.buscar,
+        custoTotal: os.cliente,
+        dataEntrega: os.phone,
+        equipeResponsavel: os.cpf,
+        descricaoProblema: os.data,
+        diagnosticoTecnico: os.conclusao,
+    listaPecas: os.status,
+      statusOrdem: os.receber,
+ 
+  
+  
+      })
+      await newOs.save()
+    } catch (error) {
+      console.log(error)
+    }
+  })
+  
+  
 
 //===============================================================
 const iniciarSistema = async () => {
@@ -116,7 +140,7 @@ const iniciarSistema = async () => {
     console.log("-------------------------------------")
     await conectar()
     //CRUD create(inscerção do banco de dados)
-    //await salvarOS("Luiz henrique", "20dias", "R$500", "Lanterna", "Lanterna quebrada", "Lanterna", "Pendente", "2025/07/02")
+    await salvarOS("Luiz henrique", "20dias", "R$500", "Lanterna", "Lanterna quebrada", "Lanterna", "Pendente", "2025/07/02")
     
     //CRUD read(listar todas as OS)
     //await listarOS()
