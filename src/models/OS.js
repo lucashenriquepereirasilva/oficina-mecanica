@@ -1,50 +1,25 @@
-/**
- * Modelo de dados para construção das coleções("tabelas")
- * clientes 
- */
+const {model,Schema} = require('mongoose')
+const { type } = require('os')
 
-//Importação dos recursos do framework mongoose
-const {model, Schema} = require('mongoose')
-const { version, type } = require('os')
-
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-
-const OrdemServicoSchema = new Schema({
-    clienteNome: {
-        type: String,
-        required: true
-    },
-    custoTotal: {
-        type: Number,
-        required: true
-    },
-    dataEntrega: {
-        type: Date
-    },
-    equipeResponsavel: {
-        type: String
-    },
-    descricaoProblema: {
-        type: String,
-        required: true
-    },
-    diagnosticoTecnico: {
-        type: String
-    },
-    listaPecas: {
-        type: [String]  // Lista de peças utilizadas no reparo
-    },
-    statusOrdem: {
-        type: String,
-        enum: ['Aberto', 'Em andamento', 'Concluído', 'Cancelado'],
-        default: 'Aberto'
-    }
-}, { versionKey: false, timestamps: true }); // Adiciona campos createdAt e updatedAt automaticamente
-
-module.exports = mongoose.model('OrdemServico', OrdemServicoSchema);
-
-//Exportar para o main o modelo de dados
-//Clientes será o nome da coleção
-
-module.exports = model('OS', cadastroOS)
+const osSchema = new Schema({
+    //numeroOS: { type: String }, // Número da OS
+    data: { type: Date, default: Date.now }, // Data de criação da OS
+    //nomeCliente: { type: String }, // Nome do cliente
+    //cpfClient: { type: String,  unique: true, index: true }, // CPF do cliente
+    //telefoneCliente: { type: String }, // Telefone do cliente
+    status: { type: String  }, // Status da OS
+    funcionarioResponsavel: { type: String }, // Nome do funcionário responsável
+    bicicleta: { type: String }, // Tipo de bicicleta
+    numeroQuadro: { type: String }, // Número de série da bicicleta
+    corBicicleta: { type: String }, // Cor da bicicleta
+    tipoManutencao: { type: String }, // Tipo de manutenção realizada
+    previsaoEntrega: { type: String }, // Previsão de entrega da bicicleta
+    observacaoCliente: { type: String }, // Observações fornecidas pelo cliente
+    conclusaoTecnico: { type: String }, // Conclusão do técnico sobre a manutenção
+    pecasTroca: {type: String},
+    acessorios: {type: String},
+    total: { type: Number }, // Valor total da OS
+    formasPagamento: { 
+        type: String // Lista de formas de pagamento utilizadas        
+}},{versionKey:false})
+module.exports = model ('OS', osSchema)

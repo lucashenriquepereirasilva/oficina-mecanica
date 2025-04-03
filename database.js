@@ -11,7 +11,7 @@ const mongoose = require('mongoose')
 // obs: Atlas(Obter via Atlas)
 // para criar um banco de dados personalizado basta escolher um nome final da string url
 
-const url = 'mongodb+srv://admin:123Senac@projetonode.uv81h.mongodb.net/dbmecanica'
+const url = 'mongodb+srv://admin:123Senac@projetonode.uv81h.mongodb.net/db'
 
  // Criar uma variavel de apoio para validação
 

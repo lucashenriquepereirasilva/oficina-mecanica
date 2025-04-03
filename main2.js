@@ -1,161 +1,99 @@
-/**
- * Porecsso principal
- * Estudo do banco de dados MongoDB (CRUD)
- * @author Lucas henrique
- */
+// Banco de dados
 
-//Importação do módulo de conexão
-const {conectar, desconectar} = require("./database.js")
+const {conectar, desconectar} = require('./database.js')
+const clienteModel = require('./src/models/OS.js')
 
-//Importação do modelo de dados do cliente
-const clienteModel = require("./src/models/OS.js")
-
-//Função para cadastrar um novo cliente
-//ATENÇÂO: Para trabalhar com banco de dados usar sempre
-//async - await e try-catch
-const salvarOS = async (nomeCli, prazo, valorOS, dadosEq, problemaCli, diagTecnico, pecasReparo, statusOS) => {
-    try { 
-        //setar a estrutura de dados com os valores
-        //obs: usar os mesmo nomes da estrutura
-        const novaOS = new clienteModel({
-            nomeCliente: nomeCli,
-            prazo: prazo,
-            valor: valorOS,
-            dadosEquipa: dadosEq,
-            problemaCliente: problemaCli,
-            diagTecnico: diagTecnico,
-            pecasReparo: pecasReparo,
-            statusOS: statusOS,
+const osSalvar = async (cpfCli,nomeCli,status,funC,bic,bicS,cor,tip,prev,obsC,obsT,pecas,acessorios,tot,pag)=> {
+    try{
+        const novoCliente = new clienteModel({
+          cpfCliente: cpfCli,
+          nomeCliente: nomeCli,
+          status: status,
+          funcionarioResponsavel: funC,
+          bicicleta: bic,
+          numeroSerieBicicleta: bicS,
+          corBicicleta:cor,
+          tipoManutencao: tip,
+          previsaoEntrega: prev,
+          observacaoCliente: obsC,
+          conclusaoTecnico: obsT,
+          pecasTroca: pecas,
+          acessorios: acessorios,
+          total: tot,
+         formasPagamento: pag 
         })
-        //A linha abaixo salva os dados no banco de dados
-        await novaOS.save()
-        console.log("OS adicionada com sucesso")
-    } catch (error) {
-        //Tratamento personalizado aos erros(exeções)
+        await novoCliente.save()
+        console.log("Os Salva")
+    }catch (error){
         if(error.code = 11000){
-            console.log(`Erro no CPF ${cpfCli} já está cadastrado`)
-        }else {
+            console.log(`Erro: O CPF: ${cpfCli}ja está cadastrado`)
+        }
+        else{
             console.log(error)
         }
     }
 }
-
-//===============================================================
-//Função listar todas as OS
-const listarOS = async () => {
+const listarCliente = async ()=>{
     try{
-        const OS = await clienteModel.find().sort({
-            nomeOS: 1
-        })
-        console.log(OS)
+        const Clientes = await clienteModel.find()
+        console.log(Clientes)
     }catch(error){
         console.log(error)
     }
 }
-
-//Função para buscar um cliente pelo nome
-//find({nomeOS: new RegExp(nome, i)}) = Ignorar na bucas letras maiúsculas ou minúsculas
-//(i = casy insentive)
-const buscarOSNome = async (nome) => {
-    try{
-        const buscarOSNome = await clienteModel.find({
-            nomeCliente: new RegExp(nome, 'i')
-        })
-        console.log(buscarOSNome)
-    }catch(error){
-        console.log(error)
-    }
-}
-
-//Função para editar os dados da OS
-//ATENÇÃO: usar o id da OS
-const atualizarOS = async (id,  clienteNome, custoTotal, problemaCliente,   dataEntrega,  equipeResponsavel ,  descricaoProblema,   diagnosticoTecnico , statusOrdem, listaPecas,  ) => {
-    try{
-        const osAlterada = await clienteModel.findByIdAndUpdate(
-            id,
-            {
-            
-                clienteNome: nome,
-                custoTotal: prazo,
-                dataEntrega: dadosEt,
-                descricaoProblema: problemaCli,
-                equipeResponsavel:  diagTecnico,
-                diagnosticoTecnico:  pecasReparo,
-                statusOrdem: statusOS
-            },
-            {
-                new: true,
-                runValidators: true
-            }
-        )
-        console.log("Dados da OS alterado com sucesso")
-    }catch(error){
-        //Tratamento personalizado aos erros(exeções)
-        if(error.code = 11000){
-            console.log(`Erro no CPF ${cpfCli} já está cadastrado`)
-        }else {
-            console.log(error)
-        }
-    }
-}
-
-//Função para excluir os dados do cliente
-const excluirCliente = async (id) => {
-    try{
-        const osDeletado = await clienteModel.findByIdAndDelete(id)
-        console.log("OS excluída com sucesso!")
-    }catch(error){
-        console.log(error)
-    }
-}
-ipcMain.on('new-os', async (event, os) => {
-    console.log(os)
+const buscarClienteNome = async(nome)=>{
     try {
-      const newOs = new clienteModel({
-  
-        nomeCliente: os.buscar,
-        custoTotal: os.cliente,
-        dataEntrega: os.phone,
-        equipeResponsavel: os.cpf,
-        descricaoProblema: os.data,
-        diagnosticoTecnico: os.conclusao,
-    listaPecas: os.status,
-      statusOrdem: os.receber,
- 
-  
-  
-      })
-      await newOs.save()
+        const clienteNome = await clienteModel.find({nomeCliente: new RegExp(nome ,'i')})
+        console.log(clienteNome)
     } catch (error) {
-      console.log(error)
+        console.log(error)
     }
-  })
-  
-  
-
-//===============================================================
-const iniciarSistema = async () => {
-    console.clear()
-    console.log("Estudo do MongoDB")
-    console.log("-------------------------------------")
-    await conectar()
-    //CRUD create(inscerção do banco de dados)
-    await salvarOS("Luiz henrique", "20dias", "R$500", "Lanterna", "Lanterna quebrada", "Lanterna", "Pendente", "2025/07/02")
-    
-    //CRUD read(listar todas as OS)
-    //await listarOS()
-
-    //CRUD read (buscar pelo nome do cliente)
-    //await buscarOSNome("Luiz henrique")
-
-    //CRUD update (id do cliente)
-    //await atualizarOS("67e4461adc4f6c2716729da4", "Endrick Novaes", "R$872", "30 dias", "Placa", "Placa mudada", "Placa", "Placa", "Pendente")
-
-    //CRUD delete (id do cliente)
-    //await excluirCliente("67db23512ed7a6cceff4f67e")
-
-    // await salvarOS("Fábio Alberto Lopes", "963903225", "26787813338", "20", "lanterna", "lanterna quebrada", "lanterna frontal")
-    await desconectar()
+}
+const buscarClienteCPF = async(cpf)=>{
+    try {
+        const clienteCPF = await clienteModel.find({cpfCliente: new RegExp(cpf)})
+        console.log(clienteCPF)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-iniciarSistema()
+const atualizarCliente = async (id,cpfCli,nomeCli,status,funC,bic,bicS,cor,tip,prev,obsC,obsT,pecas,acessorios,tot,pag)=>{
+    try {
+        const clienteEditado = await clienteModel.findByIdAndUpdate(id,{nomeCliente: nomeCli,cpfCliente: cpfCli,status: status, funcionarioResponsavel: funC, bicicleta: bic, numeroSerieBicicleta:bicS,corBicicleta: cor,tipoManutencao: tip, previsaoEntrega: prev,observacaoCliente: obsC,conclusaoTecnico: obsT,pecasTroca: pecas,acessorios:acessorios, total: tot,formasPagamento: pag })
+        console.log("OS Atualizada")
+    } catch (error) {
+        if(error.code = 11000){
+            console.log(`Erro: O CPF: ${cpfCli}ja está cadastrado`)
+        }
+        else{
+            console.log(error)
+        }
+    }
+}
+
+const excluirCliente = async (id)=>{
+    try {
+        const clienteDeletado = await clienteModel.findOneAndDelete(id)
+        console.log("Os deletada")
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+const Iniciarsistema = async ()=> {
+  console.clear()
+  console.log("Estudo do MongoDB")
+  console.log("------------------")
+  await conectar()
+  //await listarCliente()
+  //await osSalvar("123456789000","luca","Aberta","Toninho","caloi","11091","Preta","Preventiva","10/04/05","Trocar a corrente","Trocar a corrente por uma nova modelo 05","Corrente", "Bolsa pequena e uma lanterna dianteira",1250,"Dinheiro")
+   // await buscarClienteNome("gabriel")
+  //await buscarClienteCPF("44909123")
+  //await atualizarCliente("67e43e01d73e7a27dd3af8e0","123456789000","gabriel","Aberta","pituca","caloi","11091","vermelha","Corretiva","10/04/06","Trocar a corrente","Trocar a corrente por uma nova modelo 05","Corrente", "Bolsa pequena e uma lanterna dianteira",1250,"Dinheiro")
+  //await excluirCliente("67db2386b6501ad6704953b7")
+  await desconectar()
+}
+
+Iniciarsistema()
