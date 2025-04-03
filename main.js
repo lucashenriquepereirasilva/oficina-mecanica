@@ -506,99 +506,78 @@ ipcMain.on('new-client', async (event, client) => {
 
 
 //  =================
-// realtorio dos clientes
 async function relatorioClientes() {
   try {
-    //passo 1 : consultar o banco de dados e obter a linguagem
-    //de clientes cadastrados por ordem alfabetica
-    // passo 2: Formatação do documento pdf
-    //p - portraint | l - landscape | mm e a4  (folha a4)
-    // (210x297mm)
+    const clientes = await clienteModel.find().sort({ nomeCliente: 1 });
+    const doc = new jsPDF('p', 'mm', 'a4');
 
-    const clientes = await clienteModel.find().sort({ nomeCliente: 1 })
-    //console.log(clientes)
-    const doc = new jsPDF('p', 'mm', 'a4')
+    // Inserir imagem no cabeçalho do PDF
+    const imagePath = path.join(__dirname, 'src', 'public', 'img', 'ds.png');
+    const imageBase64 = fs.readFileSync(imagePath, { encoding: 'base64' });
 
-    // inserir imagem no documento pdf
-    // caminho da imagem que será  inserida
-    // imagebase64 (uso da biblioteca fs  para ler o arquivo no formato png)
-    const imagePath = path.join(__dirname, 'src', 'public', 'img', 'ds.png')
-    const imageBase64 = fs.readFileSync(imagePath, { encoding: 'base64' })
+    doc.addImage(imageBase64, 'PNG', 5, 8);
 
-    doc.addImage(imageBase64, 'PNG', 5, 8) // (5mm, 8mm x,y)
-    // definir o tamanho da fonte
-    doc.setFontSize(18)
-    //escrever um (titulo)
-    doc.text("Relatorio de clientes", 14, 50)// x, y (mm)
+    doc.setFontSize(18);
+    doc.text("Relatório de Clientes", 14, 50);
 
-    // inserir a data atual no relatorio
-    const dataAtual = new Date().toLocaleDateString('pt-br')
-    doc.setFontSize(12)
-    doc.text(`Data: ${dataAtual}`, 160, 10)
-    let y = 60
-    doc.text("Nome", 14, y)
-    doc.text("Telefone", 80, y)
-    doc.text("Email", 130, y)
-    y += 5
-    // desenhar uma linha
-    doc.setLineWidth(0.5) // expressura da linha
-    doc.line(10, y, 200, y) // 10 inicio --- 200 (fim)
-    //...
+    // Inserir data atual
+    const dataAtual = new Date().toLocaleDateString('pt-BR');
+    doc.setFontSize(12);
+    doc.text(`Data: ${dataAtual}`, 160, 10);
 
-    // renderizar  os clientes cadastrados no banco
-    y += 10 // espacamento da linha
-    // percorrer o valor clientes(obtido do banco) usando o laço
-    // foreach
-    clientes.forEach((c) => {
-      // adicionar outra pagína se a folha inteira for preenchida (estratégia e saber o tamanho da folha)
-      // folha a4 y = 297mm
+    let y = 60;
+    doc.text("Nome", 14, y);
+    doc.text("Telefone", 80, y);
+    doc.text("Email", 130, y);
+    y += 5;
+
+    doc.setLineWidth(0.5);
+    doc.line(10, y, 200, y);
+    y += 10;
+
+    // Renderizar clientes cadastrados
+    clientes.forEach((c, index) => {
       if (y > 280) {
-        doc.addPage()
-        y = 20 // resetar a variavel 20
-        // redesenhar o cabecalho
-        doc.text("Nome", 14, y)
-        doc.text("Telefone", 80, y)
-        doc.text("Email", 130, y)
-        y += 5
-        doc.setLineWidth(0.5) // expressura da linha
-        doc.line(10, y, 200, y) // 10 inicio --- 200 (fim)
-        //...
+        doc.addPage();
+        y = 20;
+
+        doc.text("Nome", 14, y);
+        doc.text("Telefone", 80, y);
+        doc.text("Email", 130, y);
+        y += 5;
+
+        doc.setLineWidth(0.5);
+        doc.line(10, y, 200, y);
+        y += 10;
       }
-      doc.text(c.nomeCliente, 14, y),
-        doc.text(c.foneCliente, 80, y),
-        doc.text(c.emailCliente || "N/A", 130, y)
-      y += 10 // quebra de linha
-      // desenhar uma linha
 
-    })
+      // Garantindo que os valores são strings válidas
+      const nomeCliente = c?.nomeCliente ? String(c.nomeCliente) : "N/A";
+      const foneCliente = c?.foneCliente ? String(c.foneCliente) : "N/A";
+      const emailCliente = c?.emailCliente ? String(c.emailCliente) : "N/A";
 
-    // adicionar numeração automatica de paginas
-    const paginas = doc.internal.getNumberOfPages()
+      doc.text(nomeCliente, 14, y);
+      doc.text(foneCliente, 80, y);
+      doc.text(emailCliente, 130, y);
+
+      y += 10;
+    });
+
+    // Adicionar numeração de páginas
+    const paginas = doc.internal.getNumberOfPages();
     for (let i = 1; i <= paginas; i++) {
-      doc.setPage(i)
-      doc.setFontSize(10)
-      doc.text(`Pagína ${i} de ${paginas}`, 105, 290, { align: 'center' })
+      doc.setPage(i);
+      doc.setFontSize(10);
+      doc.text(`Página ${i} de ${paginas}`, 105, 290, { align: 'center' });
     }
 
+    // Salvar arquivo temporário
+    const tempDir = app.getPath('temp');
+    const filePath = path.join(tempDir, 'clientes.pdf');
 
-
-
-
-
-
-    // definir o tamanho do arquivo temporario
-    const tempDir = app.getPath('temp')
-    const filePath = path.join(tempDir, 'clientes.pdf')
-
-
-
-
-    // salvar temporariamente o arquivo
-    doc.save(filePath)
-    //abrir o arquivo no apliactivo padrao de leitura de pdf dp compuador do usuario
-    shell.openPath(filePath)
+    doc.save(filePath);
+    shell.openPath(filePath);
   } catch (error) {
-    console.log(error)
+    console.error("Erro ao gerar o relatório:", error);
   }
 }
-
