@@ -1,167 +1,84 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Veículos</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Cadastro do Veículo</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="../public/css/style.css">
+    <!-- impedir a execução de scripts externos ou não autorizados -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
 </head>
+
 <body>
-    <div class="container mt-5">
-        <h2>Cadastro de Veículos</h2>
-        <form id="frmVehicle" class="row g-3">
-            <div class="col-md-6">
-                <label for="inputPlateVehicle" class="form-label">Placa</label>
-                <input type="text" class="form-control" id="inputPlateVehicle" required maxlength="7">
+    <div class="container">
+        <form id="frmCarro" class="mt-2 row g-3">
+
+            <!-- Nome do Proprietario -->
+            <div class="col-md-5">
+                <label for="inputProprietarioClient" class="form-label">Nome do Proprietario</label>
+                <input type="text" class="form-control" id="inputProprietarioClient" spellcheck="false" maxlength="15">
             </div>
-            <div class="col-md-6">
-                <label for="inputCategoryVehicle" class="form-label">Categoria do Veículo</label>
-                <select class="form-control" id="inputCategoryVehicle" required>
-                    <option value="" disabled selected>Escolha a categoria</option>
-                    <option value="Carro">Carro</option>
-                    <option value="Motocicleta">Motocicleta</option>
-                    <option value="Caminhão">Caminhão</option>
-                    <option value="Caminhonete">Caminhonete</option>
-                    <option value="Ônibus">Ônibus</option>
-                    <option value="Van">Van</option>
-                    <option value="Micro-ônibus">Micro-ônibus</option>
-                    <option value="Furgão">Furgão</option>
-                    <option value="SUV">SUV</option>
-                    <option value="Pick-up">Pick-up</option>
-                </select>
+
+            <!-- Marca do carro -->
+            <div class="col-md-3">
+                <label for="inputMarcaClient" class="form-label">Marca do Veiculo</label>
+                <input type="text" class="form-control" id="inputMarcaClient" spellcheck="false" required
+                    maxlength="15">
             </div>
-            <div class="col-md-6">
-                <label for="inputModelVehicle" class="form-label">Modelo</label>
-                <select class="form-control" id="inputModelVehicle" required>
-                    <option value="" disabled selected>Escolha o modelo</option>
-                    <option value="Fusca">Fusca</option>
-                    <option value="Civic">Civic</option>
-                    <option value="Corolla">Corolla</option>
-                    <option value="Golf">Golf</option>
-                    <option value="Onix">Onix</option>
-                    <option value="Palio">Palio</option>
-                    <option value="Argo">Argo</option>
-                    <option value="Kwid">Kwid</option>
-                    <option value="HB20">HB20</option>
-                    <option value="Toro">Toro</option>
-                    <option value="Ranger">Ranger</option>
-                    <option value="Hilux">Hilux</option>
-                    <option value="Ka">Ka</option>
-                    <option value="Tucson">Tucson</option>
-                    <option value="X6">X6</option>
-                    <option value="A3">A3</option>
-                    <option value="i30">i30</option>
-                    <option value="Fit">Fit</option>
-                    <option value="Fusion">Fusion</option>
-                    <option value="L200">L200</option>
-                    <option value="Duster">Duster</option>
-                    <option value="Focus">Focus</option>
-                    <option value="Edge">Edge</option>
-                    <option value="S10">S10</option>
-                    <option value="Maverick">Maverick</option>
-                    <option value="C5">C5</option>
-                    <option value="Compass">Compass</option>
-                    <option value="V20">V20</option>
-                    <option value="T-Cross">T-Cross</option>
-                    <option value="Jetta">Jetta</option>
-                </select>
+
+            <!-- Modelo do Veiculo -->
+            <div class="col-md-4">
+                <label for="inputModeloClient" class="form-label">Modelo</label>
+                <input type="text" class="form-control" id="inputModeloClient" spellcheck="false" required
+                    maxlength="20">
             </div>
-            <div class="col-md-6">
-                <label for="inputYearVehicle" class="form-label">Ano</label>
-                <input type="number" class="form-control" id="inputYearVehicle" required min="1900" max="2099">
+
+            <!-- Ano do Veiculo -->
+            <div class="col-md-3">
+                <label for="inputAnoClient" class="form-label">Ano</label>
+                <input type="text" class="form-control" id="inputAnoClient" spellcheck="false" maxlength="15">
             </div>
-            <div class="col-md-6">
-                <label for="inputColorVehicle" class="form-label">Cor</label>
-                <select class="form-control" id="inputColorVehicle" required>
-                    <option value="" disabled selected>Escolha a cor</option>
-                    <option value="Preto">Preto</option>
-                    <option value="Branco">Branco</option>
-                    <option value="Prata">Prata</option>
-                    <option value="Cinza">Cinza</option>
-                    <option value="Azul">Azul</option>
-                    <option value="Vermelho">Vermelho</option>
-                    <option value="Verde">Verde</option>
-                    <option value="Amarelo">Amarelo</option>
-                    <option value="Laranja">Laranja</option>
-                    <option value="Bege">Bege</option>
-                    <option value="Rosa">Rosa</option>
-                    <option value="Marrom">Marrom</option>
-                    <option value="Dourado">Dourado</option>
-                    <option value="Prata">Prata</option>
-                    <option value="Azul Claro">Azul Claro</option>
-                    <option value="Azul Escuro">Azul Escuro</option>
-                    <option value="Verde Claro">Verde Claro</option>
-                    <option value="Verde Escuro">Verde Escuro</option>
-                    <option value="Branco Perolizado">Branco Perolizado</option>
-                    <option value="Preto Fosco">Preto Fosco</option>
-                    <option value="Prata Fosco">Prata Fosco</option>
-                    <option value="Cinza Claro">Cinza Claro</option>
-                    <option value="Cinza Escuro">Cinza Escuro</option>
-                    <option value="Vermelho Claro">Vermelho Claro</option>
-                    <option value="Vermelho Escuro">Vermelho Escuro</option>
-                    <option value="Amarelo Claro">Amarelo Claro</option>
-                    <option value="Amarelo Escuro">Amarelo Escuro</option>
-                </select>
+
+            <!-- Placa -->
+            <div class="col-md-3">
+                <label for="inputPlacaClient" class="form-label">Placa</label>
+                <input type="text" class="form-control" id="inputPlacaClient" spellcheck="false" required
+                    maxlength="15">
             </div>
-            <div class="col-md-6">
-                <label for="inputEngineType" class="form-label">Tipo de Motor</label>
-                <select class="form-control" id="inputEngineType" required>
-                    <option value="" disabled selected>Escolha o tipo de motor</option>
-                    <option value="Gasolina">Gasolina</option>
-                    <option value="Álcool">Álcool</option>
-                    <option value="Diesel">Diesel</option>
-                    <option value="Elétrico">Elétrico</option>
-                    <option value="Híbrido">Híbrido</option>
-                </select>
+
+            <!-- Cor -->
+            <div class="col-md-2">
+                <label for="inputCorClient" class="form-label">Cor</label>
+                <input type="text" class="form-control" id="inputCorClient" spellcheck="false" required maxlength="15">
             </div>
-            <div class="mt-3">
-                <button type="submit" class="btn btn-success">Adicionar Veículo</button>
-                <button type="reset" class="btn btn-secondary">Limpar</button>
+
+            <!-- Chassi -->
+            <div class="col-md-4">
+                <label for="inputChassiClient" class="form-label">Chassi</label>
+                <input type="text" class="form-control" id="inputChassiClient" spellcheck="false" required
+                    maxlength="30">
             </div>
+
+            <!-- Botões -->
+            <div class="mt-5">
+                <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
+                <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
+                <button type="button" class="btn btn-danger" id="btnDelete">Excluir</button>
+                <button type="reset" class="btn" id="btnReset" onclick="resetForm()"></button>
+            </div>
+
         </form>
-        <h3 class="mt-5">Lista de Veículos</h3>
-        <ul id="vehicleList" class="list-group mt-3"></ul>
     </div>
-    
-    <script>
-        document.getElementById('frmVehicle').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const plate = document.getElementById('inputPlateVehicle').value;
-            const category = document.getElementById('inputCategoryVehicle').value;
-            const model = document.getElementById('inputModelVehicle').value;
-            const year = document.getElementById('inputYearVehicle').value;
-            const color = document.getElementById('inputColorVehicle').value;
-            const engineType = document.getElementById('inputEngineType').value;
-            
-            const vehicle = { plate, category, model, year, color, engineType };
-            let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-            vehicles.push(vehicle);
-            localStorage.setItem('vehicles', JSON.stringify(vehicles));
-            displayVehicles();
-        });
-        
-        function displayVehicles() {
-            const list = document.getElementById('vehicleList');
-            list.innerHTML = '';
-            let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-            vehicles.forEach((vehicle, index) => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                li.innerHTML = `${vehicle.plate} - ${vehicle.category} ${vehicle.model} (${vehicle.year}) - ${vehicle.color} - ${vehicle.engineType}
-                    <button class="btn btn-danger btn-sm" onclick="deleteVehicle(${index})">Excluir</button>`;
-                list.appendChild(li);
-            });
-        }
-        
-        function deleteVehicle(index) {
-            let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-            vehicles.splice(index, 1);
-            localStorage.setItem('vehicles', JSON.stringify(vehicles));
-            displayVehicles();
-        }
-        
-        document.addEventListener('DOMContentLoaded', displayVehicles);
-    </script>
+
+    <!-- Bootstrap -->
+    <script src="../public/js/bootstrap.min.js"></script>
+    <!-- renderizador -->
+    <script src="../views/rendenderCarro.js"></script>
+
 </body>
+
 </html>

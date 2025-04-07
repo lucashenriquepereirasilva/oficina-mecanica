@@ -6,23 +6,26 @@
 const { model, Schema } = require('mongoose')
 
 // criação da estrutura da coleção OS
-const osSchema = new Schema ({
-    descricaoOS: {
+const carroSchema = new Schema ({
+    proprietarioCarro: {
         type: String
     },
-    materialOS: {
+    marcaCarro: {
         type: String
     },
-    dataOS: {
+    modeloCarro: {
         type: String
     },
-    orcamentoOS: {
+    anoCarro: {
         type: String
     },
-    pagamentoOS: {
+    placaCarro: {
         type: String
     },
-    statusOS: {
+    corCarro: {
+        type: String
+    },
+    chassiCarro: {
         type: String
     }
 }, {versionKey: false}) // não versionar os dados armazenados 
@@ -30,4 +33,4 @@ const osSchema = new Schema ({
 // exportar para o main o moulo de dados
 //OBS: Clientes será o nome da coleção "tabelas"
 
-module.exports = model('os', osSchema)
+module.exports = model('Veículos', carroSchema)

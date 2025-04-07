@@ -1,104 +1,90 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ordem de Serviço - Oficina Mecânica</title>
-    <style>
-        textarea {
-            overflow: hidden;
-            resize: none;
-        }
-    </style>
+    <title>Ordem de Serviço</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="../public/css/style.css">
+    <!-- impedir a execução de scripts externos ou não autorizados -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
 </head>
-
-<!-- Bootstrap -->
-<link rel="stylesheet" href="../public/css/bootstrap.min.css">
-<!-- CSS Personalizado -->
-<link rel="stylesheet" href="../public/css/style.css">
-<!-- impedir a execução de scripts externos ou não autorizados -->
-<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
 
 <body>
     <div class="container">
-        <form class="mt-2 row g-3" id="frmOrdemServico">
+        <form id="frmOS" class="mt-2 row g-3">
 
-            <!-- Ordem de Serviço -->
+            <!-- OS -->
             <div class="col-md-4">
-                <label class="form-label">Número da OS</label>
-                <input type="text" class="form-control" id="numeroOS" disabled>
+                <label class="form-label">Nº OS</label>
+                <input type="text" class="form-control" id="txtOs" disabled>
             </div>
 
-            <!-- Data da Ordem -->
+            <!-- Data -->
             <div class="col-md-3">
-                <label class="form-label">Data da Ordem</label>
-                <input type="text" class="form-control" id="dataOrdem" disabled>
+                <label class="form-label">Data</label>
+                <input type="text" class="form-control" id="txtData" disabled>
             </div>
 
-            <!-- Buscar Cliente -->
+            <!-- Buscar cliente -->
             <div class="col-md-5">
-                <label for="buscaCliente" class="form-label">Buscar Cliente</label>
+                <label for="inputSearchClient" class="form-label">Buscar Cliente</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="buscaCliente" spellcheck="false"  maxlength="30">
+                    <input type="text" class="form-control" id="inputSearchClient" spellcheck="false" required maxlength="30">
                     <span class="input-group-text">
                         <img src="../public/img/cliente.png" alt="lupa" width="20">
                     </span>
                 </div>
             </div>
 
-            <!-- Nome do Cliente -->
+            <!-- Nome -->
             <div class="col-md-5">
-                <label for="nomeCliente" class="form-label">Nome do Cliente</label>
-                <input type="text" class="form-control" id="nomeCliente" spellcheck="false" required maxlength="30" disabled>
+                <label for="inputNameClient" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="inputNameClient" spellcheck="false" maxlength="30" disabled>
             </div>
 
-            <!-- Telefone do Cliente -->
+            <!-- Telefone -->
             <div class="col-md-3">
-                <label for="telefoneCliente" class="form-label">Telefone do Cliente</label>
-                <input type="text" class="form-control" id="telefoneCliente" spellcheck="false"  required ="15" disabled>
+                <label for="inputPhoneClient" class="form-label">Telefone</label>
+                <input type="text" class="form-control" id="inputPhoneClient" spellcheck="false" maxlength="15"
+                    disabled>
             </div>
 
-            <!-- CPF ou CNPJ do Cliente -->
+            <!-- CPF -->
             <div class="col-md-4">
-                <label for="cpfCnpjCliente" class="form-label">CPF ou CNPJ</label>
-                <input type="text" class="form-control" id="cpfCnpjCliente" spellcheck="false" maxlength="18" disabled>
+                <label for="inputCPFClient" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="inputCPFClient" spellcheck="false" maxlength="15" disabled>
             </div>
 
+            <!-- Linha -->
             <hr class="mt-4 border border-secondary border -1">
 
             <!-- Descrição do Serviço -->
             <div class="col-md-12">
-                <label for="descricaoServico" class="form-label">Descrição do Serviço</label>
-                <textarea class="form-control" id="descricaoServico" rows="3" maxlength="200" required></textarea>
+                <label for="serviceDescription" class="form-label">Descrição do Serviço</label>
+                <textarea class="form-control" id="serviceDescription" rows="3" maxlength="200" required></textarea>
             </div>
+          
 
-            <!-- Data de Início do Serviço -->
-            <div class="col-md-6">
-                <label for="dataInicioServico" class="form-label">Data de Início</label>
-                <input type="date" class="form-control" id="dataInicioServico" required>
-            </div>
-
-            <!-- Data de Conclusão do Serviço -->
-            <div class="col-md-6">
-                <label for="dataConclusaoServico" class="form-label">Data de Conclusão</label>
-                <input type="date" class="form-control" id="dataConclusaoServico">
-            </div>
-
-            <!-- Status do Serviço -->
-            <div class="col-md-6">
-                <label for="statusServico" class="form-label">Status da Ordem</label>
-                <select class="form-select" id="statusServico" name="status">
-                    <option value="pendente">Pendente</option>
-                    <option value="em andamento">Em andamento</option>
-                    <option value="finalizado">Finalizado</option>
-                </select>
-            </div>
-
-            <!-- Forma de Pagamento -->
+                <!-- Data de conclusão -->
             <div class="col-md-3">
-                <label for="formaPagamento" class="form-label">Forma de Pagamento</label>
-                <select class="form-select" id="formaPagamento" spellcheck="false" required maxlength="20">
+                <label for="inputconclusãoClient" class="form-label">Data de conclusão</label>
+                <input type="text" class="form-control" id="inputconclusãoClient" spellcheck="false" required maxlength="30">
+               </div>
+
+               <!-- Orçamento do serviço -->
+            <div class="col-md-3">
+                <label for="inputOrcamentoClient" class="form-label">Orçamento do serviço</label>
+                <input type="text" class="form-control" id="inputOrcamentoClient" spellcheck="false" required maxlength="30">
+               </div>
+
+               <!-- Forma de pagamento -->
+            <div class="col-md-3">
+                <label for="inputpagamentoClient" class="form-label">Forma de pagamento</label>
+                <select type="text" class="form-select" id="inputpagamentoClient" spellcheck="false" required maxlength="20">
                     <option value=""></option>
                     <option>Pix</option>
                     <option>Cartão Débito</option>
@@ -106,20 +92,50 @@
                     <option>Dinheiro</option>
                     <option>Boleto</option>
                 </select>
+               </div>
+
+            <!-- Assinaturas 
+            <div class="col-md-3">
+                <label for="inputAssinaturasClient" class="form-label">Assinaturas Cliente</label>
+                <input type="text" class="form-control" id="inputAssinaturasClient" spellcheck="false" maxlength="20">
+               </div> -->
+
+               <!-- Assinaturas 
+            <div class="col-md-3">
+                <label for="inputAssinaturasClient" class="form-label">Assinaturas Oficina</label>
+                <input type="text" class="form-control" id="inputAssinaturasClient" spellcheck="false" maxlength="20">
+               </div> 
+            -->
+
+               <!-- Status -->
+            <div class="col-md-3">
+                <label class="form-label">Status da OS</label>
+                <select class="form-select" id="osStatus">
+                    <option value=""></option>
+                    <option>Aberta</option>
+                    <option>Em andamento</option>
+                    <option>Aguardando peças</option>
+                    <option>Finalizada</option>
+                    <option>Cancelada</option>
+                </select>
             </div>
 
-            <!-- Botões -->
-            <div class="mt-5">
-                <button type="submit" class="btn btn-success" id="btnCriarOS">Criar Ordem de Serviço</button>
-                <button type="button" class="btn btn-warning" id="btnEditarOS">Editar Ordem de Serviço</button>
-                <button type="button" class="btn btn-danger" id="btnExcluirOS">Excluir Ordem de Serviço</button>
-                <button type="reset" class="btn btn-secondary" id="btnLimparOS">Limpar</button>
-            </div>
+            <!-- Linha -->
+            <hr class="mt-4 border border-secondary border -1">
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success" id="btnCreate">Adicionar</button>
+                <button type="submit" class="btn btn-warning" id="btnUpdate">Editar</button>
+                <button type="button" class="btn btn-danger" id="btnDelete">Excluir</button>
+                <button type="reset" class="btn" id="btnReset" onclick="resetForm()"></button>
+             </div>
         </form>
     </div>
 
     <!-- Bootstrap -->
     <script src="../public/js/bootstrap.min.js"></script>
-    <script src="../public/js/main.js"></script>
+    <!-- renderizador -->
+    <script src="rendenderOS.js"></script>
 </body>
+
 </html>

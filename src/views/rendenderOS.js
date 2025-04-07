@@ -1,53 +1,39 @@
-// Capturar o foco na busca pelo nome cliente
-//A constante "foco" obtem o elemento html(input) indentificado como "searchClinet"
-const foco = document.getElementById('searchClient');
+//captura dos dados dos inputs do formulario (passo 1 do fluxo)
+let frmOS = document.getElementById('frmOS')
+let descricaoOS = document.getElementById('serviceDescription')
+let materialOS = document.getElementById('inputPecasClient')
+let dataOS = document.getElementById('inputconclusãoClient')
+let orcamentoOS = document.getElementById('inputOrcamentoClient')
+let pagamentoOS = document.getElementById('inputpagamentoClient')
+let statusOS = document.getElementById('osStatus')
 
-//Iniciar a janela de clientes alterando as propriedades de alguns elementos
-document.addEventListener('DOMContentLoaded', () => {
-    //Desativar os botão 
-    btnUpdate.disabled = true;
-    btnDelete.disabled = true;
-    //Foco na busca do cliente
-    foco.focus();
-});
+// =======================================================
+// == CRUD Creat/Update ==================================
 
-//captura dos dados dos inputs do formulário (Passo 1: fluxo)
-let frmOS = document.getElementById("frmOrdemServico");
-let valorOS = document.getElementById("buscaCliente");
-let prazoOS = document.getElementById("nomeCliente");
-let dadosEqOS = document.getElementById("telefoneCliente");
-let problemaOS = document.getElementById("cpfCnpjCliente");
-let diagOS = document.getElementById("descricaoServico");
-let pecasRepOS = document.getElementById("dataInicioServico");
-let statusOS = document.getElementById("dataConclusaoServico");
-
-//==========================================================================
-//CRUD CREATE E UPDATE
-
-//Evento associado botão submit (uso das validações do HTML)
-frmOS.addEventListener('submit', async (event) => {
-    //Evitar o comportamento padrão do submit, que é enviar os dados de formulário e reiniciar o documento HTML
+// Evento associado ao botão submit (uso das validações do html)
+frmOS.addEventListener('submit', async (event) =>{
+    //evitar o comportamento padrao do submit que é enviar os dados do formulario e reiniciar o documento html
     event.preventDefault()
-    //teste importante (recebimento dos dados do formulário) - passo 1 do fluxo
-    console.log(valorOS.value, prazoOS.value, dadosEqOS.value, problemaOS.value, diagOS.value, pecasRepOS.value, statusOS.value)
+    //Teste importante ( recebimento dos dados do formulario - passo 1 do fluxo)
+    console.log(descricaoOS.value, materialOS.value, dataOS.value, orcamentoOS.value, pagamentoOS.value, statusOS.value) 
 
-    //Crair um objeto para armazenar os dados do cliente antes de enviar ao main 
+    // Criar um objeto para armazenar os dados do cliente amtes de enviar ao main
     const os = {
-        nameCli: valorOS.value,
-        cpfCli: prazoOS.value,
-        emailCli: dadosEqOS.value,
-        foneCli: problemaOS.value,
-        cepCli: diagOS.value,
-        logfCli: logClient.value,
-        numCli: numClient.value,
-        complementoCli: complementoClient.value,
-        bairroCli: bairroClient.value,
-        cidadeCli: cidadeClient.value,
-        ufCli: ufClient.value
+        desOS: descricaoOS.value,
+        matOS: materialOS.value,
+        datOS: dataOS.value,
+        orcOS: orcamentoOS.value,
+        pagOS: pagamentoOS.value,
+        staOS: statusOS.value
     }
-    //Enviar ao main o objeto OS - Passo 2 (fluxo)
-    //Uso do preload.js
-    api.newOs(os)
-})
+    // Enviar ao main o objeto client - (Passo 2: fluxo)
+    // uso do preload.js
+    api.newos(os);
 
-//Fim crud create update====================================================
+}) 
+
+// == fim CRUD Creat/Update ==============================
+// =======================================================
+
+
+

@@ -11,6 +11,10 @@ const { conectar, desconectar } = require('./database.js')
 
 // importacão do Schema Cliente da camada model
 const clienteModel = require('./src/models/Clientes.js');
+
+const osModel = require ('./src/models/OS.js')
+
+const carroModel = require ('./src/models/carrosOS.js')
 // importação do pacote jspdf
 
 const { jspdf, default: jsPDF } = require('jspdf')
@@ -133,7 +137,10 @@ function osWindow() {
       resizable: false,
 
       parent: main,
-      modal: true
+      modal: true,
+      webPreferences: {
+        preload: path.join(__dirname, 'preload.js')
+      }
     })
   }
   os.loadFile('./src/views/os.html')
@@ -200,7 +207,10 @@ function veiculosWindow() {
       resizable: false,
 
       parent: main,
-      modal: true
+      modal: true,
+      webPreferences: {
+        preload: path.join(__dirname, 'preload.js')
+      }
     })
   }
   veiculos.loadFile('./src/views/veiculos.html')
@@ -581,3 +591,73 @@ async function relatorioClientes() {
     console.error("Erro ao gerar o relatório:", error);
   }
 }
+
+// ==========================================
+// == OS - CRUD Create ================
+// recebimento do objeto que contem os dados do cliente
+ipcMain.on('new-os', async (event, OS) => {
+  // Importante! Teste de recebimento dos dados do cliente
+  console.log(os)
+  // console.log("teste")
+  // cadastrar a estrutura de dados no banco de dados usando a classe modelo. Atenção!! os atributos precisam ser identicos ao modelo de dados Clientes.js eos valores sao definidos pelo conteudo do objeto cliente 
+  try {
+    const newOS = new osModel({
+      descricaoOS: OS.desOS,
+      materialOS: OS.matOS,
+      dataOS: OS.datOS,
+      orcamentoOS: OS.orcOS,
+      pagamentoOS: OS.pagOS,
+      statusOS: OS.staOS
+    })
+    // salvar os dados do cliente no banco de dados
+    await newOS.save()
+    //Mensagem de confirmação
+    dialog.showMessageBox({
+      //Customização
+      type: 'info',
+      title: "Aviso",
+      message: "Cliente adicionado com sucesso",
+      buttons: ['OK']
+    }).then((result) => {
+      //ação ao precionar o botão 
+      if (result.response === 0) {
+        // enviar um pedido para o renderizador limpar os campos e resetar as 
+        // configurações pré definidas (rótulo) preload.js
+        event.reply('reset-form')
+      }
+
+    })
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+// -- Fim - OS - CRUD Create ===========
+// ==========================================
+
+// ==========================================
+// == Veiculo - CRUD Create ================
+// recebimento do objeto que contem os dados do cliente
+ipcMain.on('new-carro', async (event, car) => {
+  // Importante! Teste de recebimento dos dados do cliente
+  console.log(car)
+  // cadastrar a estrutura de dados no banco de dados usando a classe modelo. Atenção!! os atributos precisam ser identicos ao modelo de dados Clientes.js eos valores sao definidos pelo conteudo do objeto cliente 
+  try {
+    const newCarro = new carroModel({
+      proprietarioCarro: car.proCar,
+      marcaCarro: car.marCar,
+      modeloCarro: car.modCar,
+      anoCarro: car.anoCar,
+      placaCarro: car.plaCar,
+      corCarro: car.corCar,
+      chassiCarro: car.chasCar
+    })
+    // salvar os dados do cliente no banco de dados
+    await newCarro.save()
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+// -- Fim - Veiculo - CRUD Create ===========
+// ==========================================
