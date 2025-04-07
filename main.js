@@ -654,6 +654,23 @@ ipcMain.on('new-carro', async (event, car) => {
     })
     // salvar os dados do cliente no banco de dados
     await newCarro.save()
+      // mensagem  de confirmação
+      dialog.showMessageBox({
+        type: 'info',
+        title: "Aviso",
+        message: "cliente adicionado com sucesso",
+        buttons: ['OK']
+      }).then((result) => {
+        // acão pressionar o botão
+        if (result.response === 0) {
+  
+  
+          // enviar um pedido para o renderizador limpar os dados
+          event.reply('reset-f')
+        }
+  
+      })
+  
 
   } catch (error) {
     console.log(error)

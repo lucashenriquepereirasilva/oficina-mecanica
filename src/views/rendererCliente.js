@@ -99,7 +99,7 @@ frmClient.addEventListener('submit', async (event) => {
 
 
 // reset form
-function resetForm(){
+function resetF(){
   // limpa os campos e resetar o formulario com as configuracoes
   location.reload()
 }
@@ -107,7 +107,7 @@ function resetForm(){
 
 api.resetF((args) => {
   console.log("teste de recebimento")
- // resetF()
+ resetF()
 })
 
 // === Função para aplicar máscara no CPF ===

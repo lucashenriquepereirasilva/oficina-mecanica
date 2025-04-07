@@ -36,4 +36,16 @@ frmOS.addEventListener('submit', async (event) =>{
 // =======================================================
 
 
+// reset form
+function resetF(){
+    // limpa os campos e resetar o formulario com as configuracoes
+    location.reload()
+  }
+  
+  
+  api.resetF((args) => {
+    console.log("teste de recebimento")
+   resetF()
+  })
+  
 
