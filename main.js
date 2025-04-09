@@ -201,7 +201,7 @@ function veiculosWindow() {
   if (main) {
     veiculos = new BrowserWindow({
       width: 1010,
-      height: 720,
+      height: 520,
       // autoHideMenuBar: true,
       icon: './src/public/img/automotivo.png',
       resizable: false,
@@ -227,7 +227,7 @@ function veiculosWindow() {
 // iniciar aplicação
 app.whenReady().then(() => {
   createWindow()
-  //aboutwindow()
+ // aboutwindow()
 })
 
 
@@ -286,17 +286,7 @@ const template = [
         click: () => osWindow()
       },
 
-      {
-        label: 'Funcionarios',
-        click: () => funcionariosWindow()
-      },
-
-
-
-      {
-        label: 'Cadastro Do motor',
-        click: () => motorWindow()
-      },
+    
 
       {
         label: 'Cadastro de Veiculos',
@@ -353,24 +343,10 @@ const template = [
   },
 
 
-  {
-    label: '  Arquivo',
-    submenu: [
 
 
 
-      {
-        label: 'Janela Secundária',
-        click: () => childWindow()
-      },
-      {
-        label: 'Sair',
-        click: () => app.quit(),
-        accelerator: 'ALT+F4'
-      }
-    ]
-  },
-
+  
   {
     label: 'Exibir',
     submenu: [
@@ -504,7 +480,10 @@ ipcMain.on('new-client', async (event, client) => {
     console.log(error)
   }
 
+
 })
+
+
 
 
 
@@ -616,7 +595,7 @@ ipcMain.on('new-os', async (event, OS) => {
       //Customização
       type: 'info',
       title: "Aviso",
-      message: "Cliente adicionado com sucesso",
+      message: "OS adicionado com sucesso",
       buttons: ['OK']
     }).then((result) => {
       //ação ao precionar o botão 
@@ -658,7 +637,7 @@ ipcMain.on('new-carro', async (event, car) => {
       dialog.showMessageBox({
         type: 'info',
         title: "Aviso",
-        message: "cliente adicionado com sucesso",
+        message: "Carro adicionado com sucesso",
         buttons: ['OK']
       }).then((result) => {
         // acão pressionar o botão
@@ -678,3 +657,4 @@ ipcMain.on('new-carro', async (event, car) => {
 })
 // -- Fim - Veiculo - CRUD Create ===========
 // ==========================================
+

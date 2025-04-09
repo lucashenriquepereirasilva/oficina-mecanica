@@ -53,6 +53,8 @@
                     disabled>
             </div>
 
+
+
             <!-- CPF -->
             <div class="col-md-4">
                 <label for="inputCPFClient" class="form-label">CPF</label>
@@ -63,7 +65,7 @@
             <hr class="mt-4 border border-secondary border -1">
 
             <!-- Descrição do Serviço -->
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="serviceDescription" class="form-label">Descrição do Serviço</label>
                 <textarea class="form-control" id="serviceDescription" rows="3" maxlength="200" required></textarea>
             </div>
@@ -77,9 +79,19 @@
 
                <!-- Orçamento do serviço -->
             <div class="col-md-3">
-                <label for="inputOrcamentoClient" class="form-label">Orçamento do serviço</label>
+                <label for="inputOrcamentoClient" class="form-label">Valor  do serviço</label>
                 <input type="text" class="form-control" id="inputOrcamentoClient" spellcheck="false" required maxlength="30">
                </div>
+
+               <!-- Responsável pelo Serviço -->
+<div class="col-md-6">
+    <label for="inputResponsavel" class="form-label">Responsável pelo Serviço</label>
+    <div class="input-group">
+        <input type="text" class="form-control" id="inputResponsavel" spellcheck="false" maxlength="40" required>
+      
+    </div>
+</div>
+
 
                <!-- Forma de pagamento -->
             <div class="col-md-3">
@@ -138,4 +150,3 @@
     <script src="rendenderOS.js"></script>
 </body>
 
-</html>

@@ -1,7 +1,6 @@
 //captura dos dados dos inputs do formulario (passo 1 do fluxo)
 let frmOS = document.getElementById('frmOS')
 let descricaoOS = document.getElementById('serviceDescription')
-let materialOS = document.getElementById('inputPecasClient')
 let dataOS = document.getElementById('inputconclusãoClient')
 let orcamentoOS = document.getElementById('inputOrcamentoClient')
 let pagamentoOS = document.getElementById('inputpagamentoClient')
@@ -15,12 +14,11 @@ frmOS.addEventListener('submit', async (event) =>{
     //evitar o comportamento padrao do submit que é enviar os dados do formulario e reiniciar o documento html
     event.preventDefault()
     //Teste importante ( recebimento dos dados do formulario - passo 1 do fluxo)
-    console.log(descricaoOS.value, materialOS.value, dataOS.value, orcamentoOS.value, pagamentoOS.value, statusOS.value) 
+    console.log(descricaoOS.value, dataOS.value, orcamentoOS.value, pagamentoOS.value, statusOS.value) 
 
     // Criar um objeto para armazenar os dados do cliente amtes de enviar ao main
     const os = {
         desOS: descricaoOS.value,
-        matOS: materialOS.value,
         datOS: dataOS.value,
         orcOS: orcamentoOS.value,
         pagOS: pagamentoOS.value,

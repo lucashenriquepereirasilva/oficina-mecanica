@@ -18,41 +18,66 @@
         <form id="frmCarro" class="mt-2 row g-3">
 
             <!-- Nome do Proprietario -->
+            <div class="col-md-2">
+                <label for="inputProprietarioClient" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="inputProprietarioClient" spellcheck="false" maxlength="15" disabled>
+            </div>
+            
+            <!-- cpf do Proprietario -->
+            <div class="col-md-2">
+                <label for="inputProprietarioClient" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="inputProprietarioClient" spellcheck="false" maxlength="15" disabled>
+            </div>
+
+            <!-- Buscar cliente -->
             <div class="col-md-5">
-                <label for="inputProprietarioClient" class="form-label">Nome do Proprietario</label>
-                <input type="text" class="form-control" id="inputProprietarioClient" spellcheck="false" maxlength="15">
+                <label for="inputSearchClient" class="form-label">Buscar Cliente</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="inputSearchClient" spellcheck="false" required maxlength="30">
+                    <span class="input-group-text">
+                        <img src="../public/img/cliente.png" alt="lupa" width="20">
+                    </span>
+                </div>
+            </div>
+
+            <!-- telefone do Proprietario -->
+            <div class="col-md-5">
+                <label for="inputProprietarioClient" class="form-label">Telefone</label>
+                <input type="text" class="form-control" id="inputProprietarioClient" spellcheck="false" maxlength="15" disabled>
             </div>
 
             <!-- Marca do carro -->
             <div class="col-md-3">
-                <label for="inputMarcaClient" class="form-label">Marca do Veiculo</label>
+                <label for="inputMarcaClient" class="form-label">Marca</label>
                 <input type="text" class="form-control" id="inputMarcaClient" spellcheck="false" required
                     maxlength="15">
             </div>
 
+            
+
             <!-- Modelo do Veiculo -->
             <div class="col-md-4">
-                <label for="inputModeloClient" class="form-label">Modelo</label>
+                <label for="inputModeloClient" class="form-label">Modelo do Carro </label>
                 <input type="text" class="form-control" id="inputModeloClient" spellcheck="false" required
                     maxlength="20">
             </div>
 
             <!-- Ano do Veiculo -->
             <div class="col-md-3">
-                <label for="inputAnoClient" class="form-label">Ano</label>
+                <label for="inputAnoClient" class="form-label">Ano do Veículo</label>
                 <input type="text" class="form-control" id="inputAnoClient" spellcheck="false" maxlength="15">
             </div>
 
             <!-- Placa -->
             <div class="col-md-3">
-                <label for="inputPlacaClient" class="form-label">Placa</label>
+                <label for="inputPlacaClient" class="form-label">Placa Do Veiculo</label>
                 <input type="text" class="form-control" id="inputPlacaClient" spellcheck="false" required
                     maxlength="15">
             </div>
 
             <!-- Cor -->
             <div class="col-md-2">
-                <label for="inputCorClient" class="form-label">Cor</label>
+                <label for="inputCorClient" class="form-label">Cor Externa</label>
                 <input type="text" class="form-control" id="inputCorClient" spellcheck="false" required maxlength="15">
             </div>
 

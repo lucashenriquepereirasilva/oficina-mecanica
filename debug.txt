@@ -1,0 +1,7 @@
+Tela Principal:
+
+Tela de veiculos, mudar de montadora para marca
+Colocar , pra pesquisar buscar cliente, nome, telefone e cpf no lugar   do cliente / proprietario, montadora,
+Tela os: substituir orcamento por valor, fazer um campo pra peças
+resolver mensagens de erro ao cadastrar o cliente
+Validação do email

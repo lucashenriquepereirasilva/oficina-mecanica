@@ -26,6 +26,7 @@ function veiculos() { // Mudança aqui: "veiculos" minúsculo para corresponder 
 }
 
 
+
 //  Trocar o icone do banco de dados
 api.dbStatus((event,message)=>{
     // teste  do recebimento do message

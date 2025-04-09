@@ -49,16 +49,17 @@ footer {
     display: flex;
     justify-content: space-between;
     padding: 5px;
-    background-color: rgb(212, 139, 139);
+    background-color: rgb(141, 0, 0);
 }
 
 footer p {
     color: #ffffff;
-    padding-top: 7px;
+  
     margin: 20px 20px; /* Remove a margem padrão */
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold
 
 }
 
