@@ -12,9 +12,9 @@ const { conectar, desconectar } = require('./database.js')
 // importacão do Schema Cliente da camada model
 const clienteModel = require('./src/models/Clientes.js');
 
-const osModel = require ('./src/models/OS.js')
+const osModel = require('./src/models/OS.js')
 
-const carroModel = require ('./src/models/carrosOS.js')
+const carroModel = require('./src/models/carrosOS.js')
 // importação do pacote jspdf
 
 const { jspdf, default: jsPDF } = require('jspdf')
@@ -227,7 +227,7 @@ function veiculosWindow() {
 // iniciar aplicação
 app.whenReady().then(() => {
   createWindow()
- // aboutwindow()
+  // aboutwindow()
 })
 
 
@@ -286,7 +286,7 @@ const template = [
         click: () => osWindow()
       },
 
-    
+
 
       {
         label: 'Cadastro de Veiculos',
@@ -346,7 +346,7 @@ const template = [
 
 
 
-  
+
   {
     label: 'Exibir',
     submenu: [
@@ -411,6 +411,11 @@ ipcMain.on('motor-window', () => {
 ipcMain.on('veiculos-window', () => {
   veiculosWindow()
 })
+
+
+
+
+
 
 // ================================
 // == clientes - CRUD Create
@@ -633,23 +638,23 @@ ipcMain.on('new-carro', async (event, car) => {
     })
     // salvar os dados do cliente no banco de dados
     await newCarro.save()
-      // mensagem  de confirmação
-      dialog.showMessageBox({
-        type: 'info',
-        title: "Aviso",
-        message: "Carro adicionado com sucesso",
-        buttons: ['OK']
-      }).then((result) => {
-        // acão pressionar o botão
-        if (result.response === 0) {
-  
-  
-          // enviar um pedido para o renderizador limpar os dados
-          event.reply('reset-f')
-        }
-  
-      })
-  
+    // mensagem  de confirmação
+    dialog.showMessageBox({
+      type: 'info',
+      title: "Aviso",
+      message: "Carro adicionado com sucesso",
+      buttons: ['OK']
+    }).then((result) => {
+      // acão pressionar o botão
+      if (result.response === 0) {
+
+
+        // enviar um pedido para o renderizador limpar os dados
+        event.reply('reset-f')
+      }
+
+    })
+
 
   } catch (error) {
     console.log(error)
@@ -658,3 +663,73 @@ ipcMain.on('new-carro', async (event, car) => {
 // -- Fim - Veiculo - CRUD Create ===========
 // ==========================================
 
+
+// ==========================================
+// == CRUD Read =============================
+
+
+
+ipcMain.on('validate-search', () => {
+  dialog.showMessageBox({
+    type: 'warning',
+    title: 'Atenção',
+    message: 'Preencha o campo de busca',
+    buttons: ['OK']
+  })
+})
+
+ipcMain.on('search-name', async (event, name) => {
+  //console.log("teste IPC search-name") Dica para testar o funcionamento
+  //console.log(name) // teste do passo 2 (importante)
+
+  // passos 3 e 4 busca dos dados do cliente do banco
+  //find({nomeCliente: name}) - busca pelo nome
+  //RegExp(name, i) - (insensitive / Ignorar maiúsculo ou minúsculo)
+  try {
+    /*const dataClient = await clientModel.find({
+      nomeCliente: new RegExp(name, 'i')
+    })*/
+    const dataClient = await clienteModel.find({
+      $or: [
+        { nomeCliente: new RegExp(name, 'i') },
+        { cpfCliente: new RegExp(name, 'i') }
+      ]
+    })
+    console.log(dataClient) // teste passo 3 e 4 (Importante!)
+
+
+    // melhoria da experiencia do usuario( se o cliente não
+    // estiver cadastrado
+
+    // se o vetor estiver vazio [ ( cliente não cadastrado)]  
+
+    if (dataClient.length === 0) {
+      dialog.showMessageBox({
+        type: 'question',
+        title: "Aviso",
+        message: "Cliente não cadastrado.\nDeseja cadastrar este cliente?",
+        defaultId: 0, // botão 0
+        buttons: ['Sim', 'não']
+      }).then((result) => {
+        if (result.response === 0) {
+          // enviar  ao renderizador um pedido para setaros campos ( recortar  do campo de busca e colar no campo nome)
+          event.reply('set-client')
+        } else {
+          event.reply('reset-f')
+        }
+      })
+    }
+
+    // Passo 5: 
+    // enviando os dados do cliente ao rendererCliente
+    // OBS: IPC só trabalha com string, então é necessario converter o JSON para string JSON.stringify(dataClient)
+    event.reply('renderClient', JSON.stringify(dataClient))
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+
+// == fim CRUD Read ======================================
+// =======================================================

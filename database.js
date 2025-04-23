@@ -31,11 +31,7 @@ const url = 'mongodb+srv://admin:123Senac@projetonode.uv81h.mongodb.net/db'
             console.log("MongoDB conectado com Sucesso")
             return true // para o main identificar a conexao estabelecida
         } catch (error) {
-            if (error.code = 8000) {
-                console.log("Erro de authenticação")
-            } else {
-                console.log(error)
-            }
+           console.log(error)
              
         }
     }
@@ -64,5 +60,4 @@ const url = 'mongodb+srv://admin:123Senac@projetonode.uv81h.mongodb.net/db'
  }
 
  // Exportar para o main os metodos conectar e desconectar
-
  module.exports =  { conectar, desconectar }
