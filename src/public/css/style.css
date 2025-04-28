@@ -36,6 +36,12 @@ height: 300px;
     cursor: none;
 }
 
+/* ocultar o campo id do cliente */
+
+#idClient {
+    display: none;
+}
+
 /* Rodapé fixo */
 footer {
     width: 100%;

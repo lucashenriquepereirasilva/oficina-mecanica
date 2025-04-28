@@ -1,22 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Captura dos elementos do DOM
-  const foco = document.getElementById('searchClient');
-  const frmClient = document.getElementById('frmClient');
-  const nameClient = document.getElementById('inputNameClient');
-  const cpfClient = document.getElementById('inputCPFClient');
-  const emailClient = document.getElementById('inputEmailClient');
-  const telefoneClient = document.getElementById('inputTelefoneClient');
-  const cepClient = document.getElementById('inputCEPClient');
-  const logradouroClient = document.getElementById('inputAddressClient');
-  const numeroClient = document.getElementById('inputNumeroClient');
-  const complementClient = document.getElementById('inputComplementClient');
-  const bairroClient = document.getElementById('inputBairroClient');
-  const cidadeClient = document.getElementById('inputCidadeClient');
-  const ufClient = document.getElementById('inputUFclient');
+ let foco = document.getElementById('searchClient');
+ let frmClient = document.getElementById('frmClient');
+ let nameClient = document.getElementById('inputNameClient');
+ let cpfClient = document.getElementById('inputCPFClient');
+ let emailClient = document.getElementById('inputEmailClient');
+ let telefoneClient = document.getElementById('inputTelefoneClient');
+ let cepClient = document.getElementById('inputCEPClient');
+ let logradouroClient = document.getElementById('inputAddressClient');
+ let numeroClient = document.getElementById('inputNumeroClient');
+ let complementClient = document.getElementById('inputComplementClient');
+ let bairroClient = document.getElementById('inputBairroClient');
+ let cidadeClient = document.getElementById('inputCidadeClient');
+ let ufClient = document.getElementById('inputUFclient');
+
+  const id = document.getElementById('idClient')
   
   // Desativa os botões de update e delete no início
-  const btnUpdate = document.getElementById('btnUpdate');
-  const btnDelete = document.getElementById('btnDelete');
+  let btnUpdate = document.getElementById('btnUpdate');
+  let btnDelete = document.getElementById('btnDelete');
   btnUpdate.disabled = true;
   btnDelete.disabled = true;
 
@@ -61,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   frmClient.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const client = {
+    let client = {
       nameCli: nameClient.value,
       cpfCli: cpfClient.value,
       emailCli: emailClient.value,
@@ -129,46 +131,108 @@ document.addEventListener('DOMContentLoaded', () => {
   cpfClient.addEventListener("input", () => aplicarMascaraCPF(cpfClient));
   cpfClient.addEventListener("blur", validarCPF);
 
-  // Função para buscar cliente pelo nome
-  function buscarCliente() {
-    let name = document.getElementById('searchClient').value;
+  
+  function buscarCliente(){
+    //console.log("teste do botão buscar")
 
+    // Passo 1: Capturar o nome do cliente
+    let name = document.getElementById('searchClient').value
+    console.log(name) // teste do passo 1
+
+    // validação do campo obrigatorio
+    // se o campo de busca não for preenchido
     if (name === "") {
-      alert("Por favor, insira um nome para busca.");
+        // enviar ao main um pedido para alertar o usúario
+        api.validateSearch()
+        foco.focus()
+
     } else {
-      api.searchName(name);  // Passo 2: envio do nome ao main
+        api.searchName(name) // passo 2: envio do nome ao main
+        // Recebimento dos dados do cliente 
+        api.renderClient((event, dataClient) => {
+            console.log(dataClient) // teste do passo 5
+    
+            // Passo 6: renderizar os dados do cliente no formulario
+            // - Criar um vetor global para manipulação dos dados 
+            // - Criar uma constante para converter os dados recebidos que estão no formato string para o formato JSON (JSON.parse)
+            // usar o laço forEach para percorrer o vetor e setar o campo (caixas de texto) do formulario
+            const dadosCliente = JSON.parse(dataClient)
+            // atribuir ao vetor os dados do cliente
+            arrayClient = dadosCliente
+            // extrair os dados do cliente
+            arrayClient.forEach((c) => {
+              id.value = c._id,
+                nameClient.value = c.nomeCliente,
+                cpfClient.value = c.cpfCliente,
+                emailClient.value = c.emailCliente,
+                telefoneClient.value = c.foneCliente,    
+                cepClient.value = c.cepCliente,
+                AddressClient.value = c.logradouroCliente,
+                numeroClient.value = c.numeroCliente,
+                complementClient.value = c.complementoCliente,
+                bairroClient.value = c.bairroCliente,
+                CityClient.value = c.cidadeCliente,
+                ufClient.value = c.ufCliente
+                btnCreate.disabled= true
+                btnDelete.disabled = false
+                btnUpdate.disabled = false
+            })
+        })
     }
+}
 
-    // Recebimento dos dados do cliente
-    api.renderClient((event, dataClient) => {
-      const dadosCliente = JSON.parse(dataClient);
-      const arrayClient = dadosCliente;
-      arrayClient.forEach((c) => {
-        nameClient.value = c.nomeCliente;
-        cpfClient.value = c.cpfCliente;
-        emailClient.value = c.emailCliente;
-        telefoneClient.value = c.foneCliente;    
-        cepClient.value = c.cepCliente;
-        logradouroClient.value = c.logradouroCliente;
-        numeroClient.value = c.numeroCliente;
-        complementClient.value = c.complementoCliente;
-        bairroClient.value = c.bairroCliente;
-        cidadeClient.value = c.cidadeCliente;
-        ufClient.value = c.ufCliente;
-      });
-    });
-  }
+// setar o cliente não cadastrado (recortar do campo de busca e colar no campo nome)
 
-  // Função para definir cliente não cadastrado
-  api.setClient(() => {
-    let campoBusca = document.getElementById('searchClient').value;
-    nameClient.focus();
-    foco.value = "";
-    nameClient.value = campoBusca;
-  });
+/* api.setClient((args) => {
+    // Criar uma variavel para armazenar um valor digitado no campo de busca (nome ou cpf)
+    let campoBusca = document.getElementById('searchClient').value
+    // Foco no campo de nome do cliente
+    nameClient.focus()
+    // remover o valor digitado no campo de busca
+    foco.value = ""
+    // preencher o campo de nome cliente com o nome da busca
+    nameClient.value = campoBusca
+}) */
+
+api.setClient((args) => {
+    let campoBusca = document.getElementById('searchClient').value.trim()
+
+    // Regex para verificar se o valor é só número (CPF)
+    if (/^\d{11}$/.test(campoBusca)) {
+        // É um número → CPF
+        cpfClient.focus()
+        foco.value = ""
+        cpfClient.value = campoBusca
+    } 
+    else if(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(campoBusca)){
+        cpfClient.focus()
+        foco.value = ""
+        cpfClient.value = campoBusca
+    }
+    else {
+        // Não é número → Nome
+        nameClient.focus()
+        foco.value = ""
+        nameClient.value = campoBusca
+    }
+})
+
+function excluirCliente(){
+  console.log(id.value) //  passo 1 receber do form  o id do cliete
+  api.deleteClient(id.value)
+}
+
+    
+// == Reset form ==============================================
+function resetF() {
+  // Limpar os campos e resetar o formulário com as configurações pré definidas
+  location.reload()
+}
+
 
   // Reset form
   api.resetF((args) => {
     resetF();
   });
 });
+

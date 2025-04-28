@@ -29,6 +29,7 @@ const fs = require('fs')
 
 
 
+
 // Janela principal
 let win
 const createWindow = () => {
@@ -616,6 +617,31 @@ ipcMain.on('new-os', async (event, OS) => {
     console.log(error)
   }
 })
+
+
+// ========== crud delete =====================
+
+ipcMain.on('delete-client',async (event, id)=> {
+  console.log(id) // teste do botao
+  try {
+    // importante - confirmar a exclusão
+    // client é o nome da variavel que representa a janela
+    const response =  await dialog.showMessageBox(client, {
+      type: 'warning',
+      title: 'Atenção',
+      message: " Deseja  Excluir este cliente:\nEsta ação  não podera ser desfeita",
+      buttons: ['Cancelar', 'Excluir'] // [ 0, 1]
+    })
+    if (response === 1) {
+      // passo 3 excluir registro de clientes
+      const delClient = await clienteModel.findByIdAndDelete(id)
+      event.reply('reset-f')
+    }
+
+  } catch (error){
+    console.log(error)
+  }
+})
 // -- Fim - OS - CRUD Create ===========
 // ==========================================
 
@@ -669,6 +695,8 @@ ipcMain.on('new-carro', async (event, car) => {
 
 
 
+
+// Validação de busca (preenchimento obrigatorio)
 ipcMain.on('validate-search', () => {
   dialog.showMessageBox({
     type: 'warning',
@@ -678,44 +706,44 @@ ipcMain.on('validate-search', () => {
   })
 })
 
-ipcMain.on('search-name', async (event, name) => {
+
+ipcMain.on('search-name', async(event, name) => {
   //console.log("teste IPC search-name") Dica para testar o funcionamento
   //console.log(name) // teste do passo 2 (importante)
 
   // passos 3 e 4 busca dos dados do cliente do banco
   //find({nomeCliente: name}) - busca pelo nome
   //RegExp(name, i) - (insensitive / Ignorar maiúsculo ou minúsculo)
-  try {
+  try{
     /*const dataClient = await clientModel.find({
       nomeCliente: new RegExp(name, 'i')
     })*/
-    const dataClient = await clienteModel.find({
-      $or: [
-        { nomeCliente: new RegExp(name, 'i') },
-        { cpfCliente: new RegExp(name, 'i') }
-      ]
-    })
+      const dataClient  = await clientModel.find({
+        $or: [
+          { nomeCliente: new RegExp(name, 'i') },
+          { cpfCliente: new RegExp(name, 'i') }
+        ]
+      })
     console.log(dataClient) // teste passo 3 e 4 (Importante!)
 
+    // melhoria d eexperiencia do usuario (se o cliente nao estiver cadastrado, alertar o usuario e questionar se ele
+    // quer cadastrar este novo cliente. Se não quiser cadastrar, limpar os campos, se quiser cadastrar recortar o nome do cliente do campo de busca e colar no campo nome)
 
-    // melhoria da experiencia do usuario( se o cliente não
-    // estiver cadastrado
-
-    // se o vetor estiver vazio [ ( cliente não cadastrado)]  
-
-    if (dataClient.length === 0) {
+    // se o vetor estiver vazio []
+    if(dataClient.length === 0) {
       dialog.showMessageBox({
-        type: 'question',
+        type: 'warning',
         title: "Aviso",
-        message: "Cliente não cadastrado.\nDeseja cadastrar este cliente?",
-        defaultId: 0, // botão 0
-        buttons: ['Sim', 'não']
+        message: "Cliente não cadastrado.\nDeseja cadastra-lo",
+        defaultId: 0, //botão 0
+        buttons: ['Sim', 'Não'] // [0, 1]
       }).then((result) => {
         if (result.response === 0) {
-          // enviar  ao renderizador um pedido para setaros campos ( recortar  do campo de busca e colar no campo nome)
+          // enviar ao renderizador um pedido para setar os campos (recortar do campo de busca e colocar no campo nome)
           event.reply('set-client')
         } else {
-          event.reply('reset-f')
+          // limpar o formulário
+          event.reply('reset-form')
         }
       })
     }
@@ -725,11 +753,7 @@ ipcMain.on('search-name', async (event, name) => {
     // OBS: IPC só trabalha com string, então é necessario converter o JSON para string JSON.stringify(dataClient)
     event.reply('renderClient', JSON.stringify(dataClient))
 
-  } catch (error) {
-    console.log(error)
+  }catch (error) {
+    console.log (error)
   }
 })
-
-
-// == fim CRUD Read ======================================
-// =======================================================
