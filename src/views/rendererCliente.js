@@ -63,24 +63,53 @@ document.addEventListener('DOMContentLoaded', () => {
   frmClient.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    let client = {
-      nameCli: nameClient.value,
-      cpfCli: cpfClient.value,
-      emailCli: emailClient.value,
-      phoneCli: telefoneClient.value,
-      cepCli: cepClient.value,
-      logradouroCli: logradouroClient.value,
-      numeroCli: numeroClient.value,
-      complementCli: complementClient.value,
-      bairroCli: bairroClient.value,
-      cidadeCli: cidadeClient.value,
-      ufCli: ufClient.value
-    };
 
-    console.log("Dados do Cliente:", client);
+    if(id.value === "") {
+      // executar o método para cadastrar um cliente
+      const client = {
+      
+        nameCli: nameClient.value,
+        cpfCli: cpfClient.value,
+        emailCli: emailClient.value,
+        phoneCli: telefoneClient.value,
+        cepCli: cepClient.value,
+        logradouroCli: logradouroClient.value,
+        numeroCli: numeroClient.value,
+        complementCli: complementClient.value,
+        bairroCli: bairroClient.value,
+        cidadeCli: cidadeClient.value,
+        ufCli: ufClient.value
+      };
+  
+      console.log("Dados do Cliente:", client);
+  
+      // Enviar os dados ao backend
+      api.newClient(client);
+    } else {
+      // executar o método para alterar os dados do cliente
+        // executar o método para cadastrar um cliente
 
-    // Enviar os dados ao backend
-    api.newClient(client);
+        // criar um objeto para armazenar dados
+        const client = {
+          idCli: id.value,
+          nameCli: nameClient.value,
+          cpfCli: cpfClient.value,
+          emailCli: emailClient.value,
+          phoneCli: telefoneClient.value,
+          cepCli: cepClient.value,
+          logradouroCli: logradouroClient.value,
+          numeroCli: numeroClient.value,
+          complementCli: complementClient.value,
+          bairroCli: bairroClient.value,
+          cidadeCli: cidadeClient.value,
+          ufCli: ufClient.value
+        };
+    }
+      
+      // Enviar os dados ao backend
+      api.UpdateClient(client);
+
+   
   });
 
   // Função para validar CPF

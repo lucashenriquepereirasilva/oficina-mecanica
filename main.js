@@ -396,7 +396,7 @@ const template = [
 
 
 
-// recebimento dos pedidos  do renderizador para a abertura das janelas
+//recebimento dos pedidos  do renderizador para a abertura das janelas
 ipcMain.on('client-window', () => {
   clientWindow()
 })
@@ -755,5 +755,60 @@ ipcMain.on('search-name', async(event, name) => {
 
   }catch (error) {
     console.log (error)
+  }
+})
+
+
+// ========================== CRUD UPDATE
+
+ipcMain.on('update-client', async (event, client)=> {
+  console.log(client) //  teste importante ( recebimentos de dados dos cliente)
+  try {
+ // criar uma nova estrutura de dados usando a classe modelo
+    // modelo. Atenção os atributos precisam ser identicos
+    // ao modelo de dados do clientes.js e os valores são definidos pelo conteúdo do objeto cliente
+    const updateClient = await clienteModel. findByIdAndUpdate(
+      client.idCli,
+      {
+      nomeCliente: client.nameCli,
+      cpfCliente: client.cpfCli,
+      emailCliente: client.emailCli,
+      foneCliente: client.phoneCli,
+      cepCliente: client.cepCli,
+      logradouroCliente: client.logradouroCli,
+      numeroCliente: client.numeroCli,
+      complementoCliente: client.complementCli,
+      bairroCliente: client.bairroCli,
+      cidadeCliente: client.cidadeCli,
+      ufCli: client.ufCli,
+          
+
+    },
+    {
+      new: true
+    }
+)
+// confirmação
+
+ //Mensagem de confirmação
+ dialog.showMessageBox({
+  //Customização
+  type: 'info',
+  title: "Aviso",
+  message: "Dados Atualizados com sucesso ",
+  buttons: ['OK']
+}).then((result) => {
+  //ação ao precionar o botão 
+  if (result.response === 0) {
+    // enviar um pedido para o renderizador limpar os campos e resetar as 
+    // configurações pré definidas (rótulo) preload.js
+    event.reply('reset-form')
+  }
+
+})
+
+
+  } catch (error) {
+    console.log(error)
   }
 })
